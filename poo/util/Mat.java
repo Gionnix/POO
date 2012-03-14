@@ -3,7 +3,7 @@ package poo.util;
 public final class Mat {
 	private static double EPSILON = 1.0E-14;
 	private Mat() {}
-	public static getEpsilon() { return EPSILON; }
+	public static double getEpsilon() { return EPSILON; }
 	public static void setEpsilon(double EPSILON) {
 		Mat.EPSILON = EPSILON;
 	} // setEpsilon
