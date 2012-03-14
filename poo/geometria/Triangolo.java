@@ -3,6 +3,7 @@ package poo.geometria;
 public class Triangolo {
 	private Punto p1, p2, p3;
 	private double a, b, c;
+	public enum Tipo {EQUILATERO, ISOSCELE, SCALENO}
 	public Triangolo(Punto p1, Punto p2, Punto p3) {
 		a = p1.distanza(p2); b = p2.distanza(p3); c = p3.distanza(p1); // Lati
 		if ( a + b == c || b + c == a || c + a == b ) { // Se i punti sono allineati:
@@ -30,6 +31,11 @@ public class Triangolo {
 		double s = (a + b + c) / 2;
 		return Math.sqrt(s * (s - a) * (s - b) * (s - c)); // Erone
 	} // area
+	public Tipo tipo() {
+		if (a == b && b == c) return Tipo.EQUILATERO;
+		else if (a == b || b == c || c == a) return Tipo.ISOSCELE;
+		return Tipo.SCALENO;
+	}
 	public String toString() {
 		return "Triangolo di vertici: " + p1 + " " + p2 + " " + p3;
 	} // toString
