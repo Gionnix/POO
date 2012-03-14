@@ -1,6 +1,6 @@
 package poo.esempi;
 
-import poo.mat.Razionale;
+import poo.razionali.Razionale;
 
 public class TestRazionali {
 	public static void main(String[]args) {

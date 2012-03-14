@@ -1,6 +1,7 @@
 package poo.esempi;
 
-import poo.mat.*;
+import poo.complex.Complex;
+import poo.razionali.Razionale;
 
 public class TestComplex {
 	public static void main(String[]args) {
