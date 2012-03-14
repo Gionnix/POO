@@ -1,14 +1,14 @@
 package poo.vari;
 
 public class Monetina {
-	private int faccia;
-	public static final int TESTA = 0, CROCE = 1;
+	public enum Faccia {TESTA, CROCE}
+	private Faccia faccia;
 	public Monetina() { lancia(); }
 	public void lancia() {
-		faccia = (Math.random() < 0.5 ? TESTA : CROCE);
+		faccia = (Math.random() < 0.5 ? Faccia.TESTA : Faccia.CROCE);
 	} // lancia
-	public int getFaccia() { return faccia; }
+	public Faccia getFaccia() { return faccia; }
 	public String toString() {
-		return (faccia == TESTA ? "Testa" : "Croce");
+		return (faccia == Faccia.TESTA ? "Testa" : "Croce");
 	} // toString
 }

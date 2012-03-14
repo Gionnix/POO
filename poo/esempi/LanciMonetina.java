@@ -8,7 +8,7 @@ public class LanciMonetina {
 		int testa = 0, croce = 0;
 		for (int i = 0; i < 1000; i++) {
 			m.lancia();
-			if (m.getFaccia() == Monetina.TESTA)
+			if (m.getFaccia() == Monetina.Faccia.TESTA)
 				testa++;
 			else
 				croce++;
@@ -19,8 +19,8 @@ public class LanciMonetina {
 		boolean treTeste = false; int testem1 = 0, testem2 = 0;
 		while (!treTeste) {
 			System.out.println("Lancio monetina 1: " + m1 + " | Lancio monetina 2: " + m2);
-			if (m1.getFaccia() == 0) testem1++; else testem1 = 0;
-			if (m2.getFaccia() == 0) testem2++; else testem2 = 0;
+			if (m1.getFaccia() == Monetina.Faccia.TESTA) testem1++; else testem1 = 0;
+			if (m2.getFaccia() == Monetina.Faccia.TESTA) testem2++; else testem2 = 0;
 			if (testem1 == 3 || testem2 == 3) treTeste = true;
 			m1.lancia(); m2.lancia();
 		}
