@@ -23,6 +23,6 @@ public class ContoBancario {
 		return true;
 	} // preleva
 	public String toString() {
-		return numero + " E" + String.format("%1.2f", bilancio);
+		return numero + " E " + String.format("%1.2f", bilancio);
 	} // toString
 } // ContoBancario
