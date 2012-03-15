@@ -18,6 +18,10 @@ public class Geometria {
 		System.out.println("Il triangolo è " + t.tipo());
 		Punto vertici[] = {new Punto(2, 3), new Punto(2, -2), new Punto(-4, -2), new Punto(-4, 3)};
 		Poligono p = new Poligono(vertici);
-		System.out.println("Poligono formato dai vertici: " + p + "\n Area: " + p.area() + " | Perimetro: " + p.perimetro());
+		System.out.println(p + " | Area: " + p.area() + " | Perimetro: " + p.perimetro());
+		Disco d = new Disco(p1, 6);
+		System.out.println(d);
+		Disco d2 = new Disco(4, 2, 8);
+		System.out.println(d2 + String.format(" | Area = %1.2f | Perimetro = %1.2f", d2.area(), d2.perimetro()));
 	} // main
 } // Geometria
