@@ -1,5 +1,7 @@
 package poo.complex;
 
+import poo.util.Mat;
+
 public class Complex {
 	private double re, im;
 	public Complex(double re, double im) {
@@ -39,7 +41,7 @@ public class Complex {
 		if (this == obj) return true; // Stesso riferimento -> Stesso oggetto
 		if ( !(obj instanceof Complex) ) return false; // Non è un oggetto Complex
 		Complex z = (Complex)obj; // Converto l'oggetto generico in un tipo Complex
-		if (re == z.re && im == z.im) return true; // I due Complex hanno gli stessi valori
+		if (Mat.circaUguali(re, z.re) && Mat.circaUguali(im, z.im)) return true; // I due Complex hanno gli stessi valori
 		return false;
 	} // equals
 } // Complex
