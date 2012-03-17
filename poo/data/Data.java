@@ -59,7 +59,7 @@ public class Data {
 			if (m == 1) {
 				if (a == 0) return null;
 				mm = 12; aa--;
-			} else m--;
+			} else mm--;
 			gg = durataMese(mm, aa);
 		}
 		return new Data(gg, mm, aa);
