@@ -60,7 +60,7 @@ public class Data {
 				if (a == 0) return null;
 				mm = 12; aa--;
 			}
-			gg = durataMese(mm, aa);
+			gg = durataMese(--mm, aa);
 		}
 		return new Data(gg, mm, aa);
 	} // giornoPrima
