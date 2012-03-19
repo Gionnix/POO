@@ -23,5 +23,6 @@ public class Geometria {
 		System.out.println(d);
 		Disco d2 = new Disco(4, 2, 8);
 		System.out.println(d2 + String.format(" | Area = %1.2f | Perimetro = %1.2f", d2.area(), d2.perimetro()));
+		System.out.println("hashCode di " + d2 + " = " + d2.hashCode());
 	} // main
 } // Geometria

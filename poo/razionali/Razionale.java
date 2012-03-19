@@ -4,7 +4,6 @@ import poo.util.Mat;
 
 public class Razionale {
 	private int num, den;
-	private static int contatore = 0;
 	public Razionale(int n, int d) {
 		if (d == 0) {
 			System.out.println("Denominatore nullo!");
@@ -16,18 +15,13 @@ public class Razionale {
 		}
 		if (d < 0) { n *= -1; d *= -1; } // Porto il segno al numeratore
 		num = n; den = d;
-		contatore++;
 	} // Costruttore normale
 	public Razionale(Razionale r) {
 		num = r.num; den = r.den;
-		contatore++;
 	} // Costruttore copia
 	public int getNum() { return num; }
 	public int getDen() { return den; }
 	public static int getContatore() { return contatore; }
-	protected void finalize() {
-		contatore--;
-	} // finalize
 	public Razionale mul(int s) {
 		return new Razionale(s * num, den);
 	} // Moltiplicazione per uno scalare
@@ -48,4 +42,14 @@ public class Razionale {
 	public String toString() {
 		return (num == 0 ? "0" : (num > 0 ? "+" : "") + num + (den != 1 ? "/" + den : "") );
 	} // toString
+	public boolean equals(Object o) {
+		if (!(o instanceof Razionale)) return false;
+		if (o == this) return true;
+		Razionale r = (Razionale)o;
+		return num == r.num && den == r.den;
+	} // equals
+	public int hashCode() {
+		final int PRIMO = 179;
+		return num * PRIMO + den;
+	} // hashCode
 } // Razionale

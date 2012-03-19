@@ -99,4 +99,14 @@ public class Data {
 	public String toString() {
 		return String.format("%02d/%02d/%04d", g, m, a);
 	} // toString
+	public boolean equals(Object o) {
+		if (!(o instanceof Data)) return false;
+		if (o == this) return true;
+		Data d = (Data)o;
+		return g == d.g && m == d.m && a == d.a;
+	} // equals
+	public int hashCode() {
+		final int PRIMO = 163;
+		return (g * PRIMO + m) * PRIMO + a;
+	} // hashCode
 } // Data

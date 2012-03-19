@@ -20,7 +20,6 @@ public class TestRazionali {
 		// L'istruzione di sopra calcola l'espressione: (1/2) + (3/15) * (4/12) - (3/9) / (12/6) = 2/5
 		// Verifichiamo il risultato:
 		System.out.println("(1/2) + (3/15) * (4/12) - (3/9) / (12/6) = " + ris);
-		System.out.println("Numero di razionali attualmente in memoria: " + Razionale.getContatore());
-		// Quale sarà il valore del contatore?
+		System.out.println("1/2 = 3/6 ? " + unMezzo.equals(new Razionale(3, 6)));
 	} // main
 } // TestRazionali

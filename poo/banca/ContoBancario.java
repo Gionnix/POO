@@ -25,4 +25,13 @@ public class ContoBancario {
 	public String toString() {
 		return numero + " E " + String.format("%1.2f", bilancio);
 	} // toString
+	public boolean equals(Object o) {
+		if (!(o instanceof ContoBancario)) return false;
+		if (o == this) return true;
+		ContoBancario cb = (ContoBancario)o;
+	 	return numero.equals(cb.numero);
+	} // equals
+	public int hashCode() {
+		return numero.hashCode();
+	} // hashCode
 } // ContoBancario

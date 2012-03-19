@@ -20,4 +20,16 @@ public class Punto {
 	public String toString() {
 		return String.format("<%1.2f, %1.2f>", x, y);
 	} // toString
+	public boolean equals(Object o) {
+		if (!(o instanceof Punto)) return false;
+		if (o == this) return true;
+		Punto p = (Punto)o;
+	 	return x == p.x && y == p.y;
+	} // equals
+	public int hashCode() { // Metodo di hash 
+		final int PRIMO = 17;
+		long X = Double.doubleToLongBits(x);
+		long Y = Double.doubleToLongBits(y);
+		return ((int)(X ^ (X >>> 32))) * PRIMO + (int)(Y ^ (Y >>> 32));
+	} // hashCode
 } // Punto

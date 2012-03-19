@@ -11,5 +11,7 @@ public class TestData {
 		System.out.println("Giorno successivo al " + d + ": " + d.giornoDopo());
 		Data d1 = new Data(13, 3, 2012);
 		System.out.println("Giorni trascorsi tra " + d1 + " e oggi: " + d1.distanza(today));
+		System.out.println("hashCode di " + today + " " + today.hashCode());
+		System.out.println("hashCode di " + d1 + " " + d1.hashCode());
 	} // main
 } // TestData
