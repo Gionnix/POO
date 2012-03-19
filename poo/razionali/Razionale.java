@@ -21,7 +21,6 @@ public class Razionale {
 	} // Costruttore copia
 	public int getNum() { return num; }
 	public int getDen() { return den; }
-	public static int getContatore() { return contatore; }
 	public Razionale mul(int s) {
 		return new Razionale(s * num, den);
 	} // Moltiplicazione per uno scalare
