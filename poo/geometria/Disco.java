@@ -4,10 +4,14 @@ public class Disco extends Punto {
 	private double raggio;
 	public Disco() { raggio = 1; } // Costruttore di default
 	public Disco(double x, double y, double raggio) {
-		super(x, y); this.raggio = raggio;
+		super(x, y);
+		if (raggio <= 0) throw new IllegalArgumentException();
+		this.raggio = raggio;
 	} // Costruttore 1
 	public Disco(Punto centro, double raggio) {
-		super(centro); this.raggio = raggio;
+		super(centro);
+		if (raggio <= 0) throw new IllegalArgumentException();
+		this.raggio = raggio;
 	} // Costruttore 2
 	public Disco(Disco d) {
 		super(d); raggio = d.raggio;

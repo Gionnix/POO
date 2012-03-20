@@ -7,6 +7,7 @@ public class Banca {
 		clientela = new ContoBancario[n];
 	} // Costruttore
 	public void report() {
+		if (size == 0) System.out.println("Nessun cliente presente!");
 		for (int i = 0; i < size; i++)
 			System.out.println(clientela[i]);
 	} // report
