@@ -15,7 +15,7 @@ public class TestBanca {
 		if (cb1.preleva(500)) System.out.println("51/4832/23 Corri a pagare l'ENEL!");
 		else System.out.println("51/4832/23 Piangi in silenzio...");
 		carime.regalo();
-		if (carime.removeConto("51/8329/49"))
+		if (carime.removeConto(cb2))
 			System.out.println("Addio cliente 51/8329/49");
 		ContoBancario cb3 = carime.getConto("52/4498/47"); // ContoConFido è un ContoBancario! :P
 		System.out.println(cb3); // È un ContoBancario, ma in memoria c'è un ContoConFido, verrà usato il toString completo!

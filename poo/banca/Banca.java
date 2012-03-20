@@ -19,9 +19,9 @@ public class Banca {
 		clientela[size++] = cb;
 		return true;
 	} // addConto
-	public boolean removeConto(String numero) {
+	public boolean removeConto(ContoBancario cb) {
 		for (int i = 0; i < size; i++)
-			if (clientela[i].conto().equals(numero)) {
+			if (clientela[i].equals(cb)) {
 				clientela[i] = clientela[size-1]; // Trovato, sovrascrivo il suo riferimento con l'ultimo presente (garbage)
 				clientela[--size] = null; // Decremento size e tolgo il riferimento dell'ultimo conto, che è ora presente in posizione 'i'
 				return true;
