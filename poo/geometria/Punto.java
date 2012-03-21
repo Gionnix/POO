@@ -28,8 +28,6 @@ public class Punto {
 	} // equals
 	public int hashCode() { // Metodo di hash 
 		final int PRIMO = 17;
-		long X = Double.doubleToLongBits(x);
-		long Y = Double.doubleToLongBits(y);
-		return ((int)(X ^ (X >>> 32))) * PRIMO + (int)(Y ^ (Y >>> 32));
+		return (new Double(x).hashCode()) * PRIMO + new Double(y).hashCode();
 	} // hashCode
 } // Punto

@@ -33,8 +33,7 @@ public class Disco extends Punto {
 		return super.equals(d) && raggio == d.raggio;
 	} // equals
 	public int hashCode() {
-		final int PRIMO = 17;
-		long r = Double.doubleToLongBits(raggio);
-		return super.hashCode() * PRIMO + (int)(r ^ (r >>> 32));
+		final int PRIMO = 29;
+		return super.hashCode() * PRIMO + new Double(raggio).hashCode();
 	} // hashCode
 } // Disco
