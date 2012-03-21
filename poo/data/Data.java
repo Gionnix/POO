@@ -2,7 +2,7 @@ package poo.data;
 
 import java.util.*;
 
-public class Data {
+public class Data implements Comparable {
 	private int g, m, a;
 	public enum Elemento {GIORNO, MESE, ANNO};
 	public Data() {
@@ -109,4 +109,8 @@ public class Data {
 		final int PRIMO = 163;
 		return (g * PRIMO + m) * PRIMO + a;
 	} // hashCode
+	public int compareTo(Object o) {
+		Data d = (Data)o;
+		return -distanza(d);
+	} // compareTo
 } // Data

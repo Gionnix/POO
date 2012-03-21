@@ -1,8 +1,9 @@
 package poo.geometria;
 
 import poo.util.Mat;
+import poo.figure.*;
 
-public class Triangolo {
+public class Triangolo implements FiguraPiana {
 	private Punto p1, p2, p3;
 	private double a, b, c;
 	public enum Tipo {EQUILATERO, ISOSCELE, SCALENO}

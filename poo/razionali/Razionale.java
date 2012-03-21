@@ -2,7 +2,7 @@ package poo.razionali;
 
 import poo.util.Mat;
 
-public class Razionale {
+public class Razionale implements Comparable {
 	private int num, den;
 	public Razionale(int n, int d) {
 		if (d == 0) {
@@ -51,4 +51,10 @@ public class Razionale {
 		final int PRIMO = 179;
 		return num * PRIMO + den;
 	} // hashCode
+	public int compareTo(Object o) {
+		Razionale r = (Razionale)o;
+		int md = Mat.mcm(den, r.den);
+		int n1 = md / den * num; int n2 = md / r.den * r.num;
+		return n1 - n2;
+	} // compareTo
 } // Razionale

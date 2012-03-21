@@ -1,6 +1,8 @@
 package poo.geometria;
 
-public class Disco extends Punto {
+import poo.figure.*;
+
+public class Disco extends Punto implements FiguraPiana {
 	private double raggio;
 	public Disco() { raggio = 1; } // Costruttore di default
 	public Disco(double x, double y, double raggio) {
