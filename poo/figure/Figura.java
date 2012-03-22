@@ -8,7 +8,7 @@ public abstract class Figura implements FiguraPiana {
 		if (dimensione <= 0) throw new IllegalArgumentException();
 		this.dimensione = dimensione;
 	} // Costruttore base
-	public double getDimensione() { return dimensione; }
+	protected double getDimensione() { return dimensione; }
 	public abstract double perimetro();
 	public abstract double area();
 	public String toString() {
