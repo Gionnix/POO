@@ -1,5 +1,7 @@
 package poo.figure;
 
+import poo.geometria.FiguraPiana;
+
 public abstract class Figura implements FiguraPiana {
 	private double dimensione;
 	public Figura(double dimensione) {
