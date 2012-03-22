@@ -1,6 +1,8 @@
 package poo.geometria;
 
-public class Poligono {
+import poo.figure.*;
+
+public class Poligono implements FiguraPiana {
 	private Punto vertici[];
 	private double lati[];
 	public Poligono(Punto[]v) {
