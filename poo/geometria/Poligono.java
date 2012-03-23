@@ -4,7 +4,11 @@ public class Poligono implements FiguraPiana {
 	private Punto vertici[];
 	private double lati[];
 	public Poligono(Punto[]v) {
-		// Si assume che l'insieme di punti formi un poligono convesso
+		if (v.length < 3) {
+			System.out.println("Poligono inesistente!");
+			System.exit(-1);
+		}
+		// Si assume che l'insieme di punti sia ordinato e formi un poligono convesso
 		vertici = new Punto[v.length];
 		lati = new double[v.length];
 		for (int i = 0; i < v.length; i++) {
