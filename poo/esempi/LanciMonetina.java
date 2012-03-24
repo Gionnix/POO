@@ -1,6 +1,6 @@
 package poo.esempi;
 
-import poo.vari.Monetina;
+import poo.giochi.Monetina;
 
 public class LanciMonetina {
 	public static void main(String[]args) {
