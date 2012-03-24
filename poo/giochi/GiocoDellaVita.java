@@ -26,7 +26,6 @@ public class GiocoDellaVita {
 		return cont;
 	} // vicini
 	public void prossimaGenerazione() {
-		nuovaMappa = new char[n][m];
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++) {
 				int v = vicini(i, j);
@@ -35,7 +34,9 @@ public class GiocoDellaVita {
 				else
 					nuovaMappa[i][j] = (v == 3) ? '*' : '.';
 			}
-		mappa = nuovaMappa; // Garbage
+		char[][] tmp = mappa;
+		mappa = nuovaMappa;
+		nuovaMappa = tmp;
 	} // prossimaGenerazione
 	public String toString() {
 		StringBuilder sb = new StringBuilder(400);
