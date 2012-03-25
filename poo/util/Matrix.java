@@ -75,11 +75,16 @@ public class Matrix {
 		for (int i = 0; i < m.length; i++)
 			d2 += m[i][m.length-1-i]; // Diagonale secondaria
 		if (!Mat.circaUguali(d1, d2)) return false;
-		for (int i = 0; i < m.length; i++)
-			if (!Mat.circaUguali(d1, sommaRiga(m[i]))) return false; // Somma di ogni riga
-		double[][] t = trasposta(m);
-		for (int i = 0; i < t.length; i++)
-			if (!Mat.circaUguali(d1, sommaRiga(t[i]))) return false; // Somma di ogni colonna (riga della trasposta)
+		double sommaRiga, sommaColonna;
+		for (int i = 0; i < m.length; i++) {
+			sommaRiga = 0; sommaColonna = 0;
+			for (int j = 0; j < m.length; j++) {
+				sommaRiga += m[i][j];
+				sommaColonna += m[j][i];
+			}
+			if (!Mat.circaUguali(d1, sommaRiga) || !Mat.circaUguali(d1, sommaColonna))
+				return false; // Somma di ogni riga e colonna
+		}
 		return true;
 	} // quadratoMagico
 	public static int[] sella(double[][]m) {
@@ -89,12 +94,6 @@ public class Matrix {
 		}
 		return new int[] {-1,-1};
 	} // sella
-	private static double sommaRiga(double[]r) {
-		double s = 0;
-		for (int i = 0; i < r.length; i++)
-			s += r[i];
-		return s;
-	} // sommaRiga
 	private static boolean quadrata(double[][] m) {
 		return m.length == m[0].length;
 	} // quadrata
@@ -116,19 +115,24 @@ public class Matrix {
 		for (int i = 0; i < m.length; i++)
 			System.out.println(java.util.Arrays.toString(m[i]));
 		System.out.println("m è simmetrica: " + simmetrica(m));
+		System.out.println();
 		System.out.println("Trasposta di m:");
 		double[][] t = trasposta(m);
 		for (int i = 0; i < t.length; i++)
 			System.out.println(java.util.Arrays.toString(t[i]));
+		System.out.println();
 		System.out.println("Matrice somma:");
 		double[][] s = add(m, t);
 		for (int i = 0; i < s.length; i++)
 			System.out.println(java.util.Arrays.toString(s[i]));
+		System.out.println();
 		System.out.println("Minore complementare (1,1) di m:");
 		double[][] min = Matrix.minore(m, 1, 1);
 		for (int i = 0; i < min.length; i++)
 			System.out.println(java.util.Arrays.toString(min[i]));
+		System.out.println();
 		System.out.println("Elemento 'sella' di m: " + java.util.Arrays.toString(sella(m)));
+		System.out.println();
 		System.out.println("Matrice q:");
 		double[][] q = new double[][] {	{16,3,2,13},
 						{5,10,11,8},
