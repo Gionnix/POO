@@ -1,7 +1,8 @@
 package poo.util;
 
-public class Matrix {
+public final class Matrix {
 	// Precondizione: matrici quadrate o rettangolari
+	private Matrix() {} // Sovrascrivo costruttore di default
 	public static boolean simmetrica(double[][]m) {
 		if (!quadrata(m)) return false;
 		for (int i = 0; i < m.length; i++)
