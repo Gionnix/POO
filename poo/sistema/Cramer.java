@@ -7,9 +7,9 @@ public class Cramer extends Sistema {
 	public Cramer(double[][] a, double[] y) {
 		super(a, y);
 		this.a = new double[a.length][a.length];
+		this.y = new double[y.length];
 		for (int i = 0; i < a.length; i++) {
 			System.arraycopy(a[i], 0, this.a[i], 0, a.length);
-			this.y = new double[y.length];
 			this.y[i] = y[i];
 		}
 	} // Costruttore normale
@@ -17,20 +17,30 @@ public class Cramer extends Sistema {
 		double det = Matrix.determinante(a);
 		if (Mat.circaUguali(det, 0D)) throw new SistemaSingolare();
 		int n = getN();
-		double[] x = new double[n];
+		double[] x = new double[n]; double tmp;
 		for (int i = 0; i < n; i++) {
-			scambiaColonna(a, i, y);
+			for (int j = 0; j < a.length; j++) { // Scambio la colonna i-esima con il vettore dei termini noti
+				tmp = y[j];
+				y[j] = a[j][i];
+				a[j][i] = tmp;
+			}
 			x[i] = Matrix.determinante(a) / det;
-			scambiaColonna(a, i, y);
+			for (int j = 0; j < a.length; j++) { // Rimetto a posto i termini noti
+				tmp = y[j];
+				y[j] = a[j][i];
+				a[j][i] = tmp;
+			}
 		}
 		return x;
 	} // risolvi
-	private void scambiaColonna(double[][] m, int c, double[] v) {
-		double tmp;
-		for (int i = 0; i < m.length; i++) {
-			tmp = v[i];
-			v[i] = m[i][c];
-			m[i][c] = tmp;
+	public String toString() {
+		int n = getN(); final int ELEM_LENGTH = 10;
+		StringBuilder sb = new StringBuilder(n * n * ELEM_LENGTH);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++)
+				sb.append(String.format("%8.2f ", a[i][j]));
+			sb.append(String.format("| %1.2f\n", y[i]));
 		}
-	} // scambiaColonna
+		return sb.toString();
+	} // toString
 } // Cramer
