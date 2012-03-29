@@ -20,7 +20,7 @@ public class SEL { // Sistema di Equazioni Lineari
 			y[i] = sc.nextDouble();
 		Sistema s1 = new Gauss(a, y);
 		Sistema s2 = new GaussDiagonale(a, y);
-		System.out.println(s1);
+		System.out.println("\nSistema inserito:\n" + s1);
 		double[] x1 = null, x2 = null;
 		try {
 			x1 = s1.risolvi();
