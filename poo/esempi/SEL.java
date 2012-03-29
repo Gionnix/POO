@@ -5,7 +5,7 @@ import java.util.*;
 
 public class SEL { // Sistema di Equazioni Lineari
 	public static void main(String[]args) {
-		System.out.println("Risolutore di un sistema di equazioni lineari (quadrato) mediante il metodo di Gauss e Gauss-diagonale");
+		System.out.println("Risolutore di un sistema di equazioni lineari (quadrato) mediante il metodo di Gauss, Gauss-diagonale e Cramer");
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Dimensione sistema = ");
 		int n = sc.nextInt();
@@ -20,22 +20,27 @@ public class SEL { // Sistema di Equazioni Lineari
 			y[i] = sc.nextDouble();
 		Sistema s1 = new Gauss(a, y);
 		Sistema s2 = new GaussDiagonale(a, y);
+		Sistema s3 = new Cramer(a, y);
 		System.out.println("\nSistema inserito:\n" + s1);
-		double[] x1 = null, x2 = null;
+		double[] x1 = null, x2 = null, x3 = null;
 		try {
 			x1 = s1.risolvi();
 			x2 = s2.risolvi();
+			x3 = s3.risolvi();
 		} catch (SistemaSingolare e) {
 			System.out.println("Sistema singolare!");
 			System.exit(-1);
 		}
 		System.out.println("Sistema triangolarizzato:\n" + s1);
 		System.out.println("Sistema diagonalizzato:\n" + s2);
-		System.out.print("Soluzione metodo 1: [");
+		System.out.print("Soluzione metodo di Gauss: [");
 		for (int i = 0; i < n; i++)
 			System.out.print(String.format("%1.2f", x1[i]) + (i < n-1 ? ", " : "]\n"));
-		System.out.print("Soluzione metodo 2: [");
+		System.out.print("Soluzione metodo di Gauss-diagonale: [");
 		for (int i = 0; i < n; i++)
 			System.out.print(String.format("%1.2f", x2[i]) + (i < n-1 ? ", " : "]\n"));
+		System.out.print("Soluzione metodo di Cramer: [");
+		for (int i = 0; i < n; i++)
+			System.out.print(String.format("%1.2f", x3[i]) + (i < n-1 ? ", " : "]\n"));
 	} // main
 } // SEL
