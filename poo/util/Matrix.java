@@ -113,7 +113,7 @@ public final class Matrix {
 				// Cerco pivot massimo per minimizzare gli errori di approssimazione
 				for (; p < n; p++)
 					if (Math.abs(a[p][j]) > Math.abs(a[pmax][j])) pmax = p;
-				if (pmax == n) return 0; // Sistema singolare -> Determinante = 0
+				if (pmax == n || Mat.circaUguali(a[pmax][j], 0D)) return 0; // Sistema singolare -> Determinante = 0
 				double[] tmp = a[j];
 				a[j] = a[pmax];
 				a[pmax] = tmp;
