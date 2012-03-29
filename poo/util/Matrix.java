@@ -20,8 +20,7 @@ public final class Matrix {
 		return t;
 	} // trasposta
 	public static double[][] add(double[][]m1, double[][]m2) {
-		if (m1.length != m2.length || m1[0].length != m2[0].length)
-			throw new IllegalArgumentException("Matrici con dimensioni diverse!");
+		if (!dimensioniUguali(m1, m2)) throw new IllegalArgumentException("Matrici incompatibili!");
 		double[][] s = new double[m1.length][m1[0].length];
 		for (int i = 0; i < m1.length; i++)
 			for (int j = 0; j < m1[0].length; j++)
@@ -29,8 +28,7 @@ public final class Matrix {
 		return s;
 	} // add
 	public static double[][] sub(double[][]m1, double[][]m2) {
-		if (m1.length != m2.length || m1[0].length != m2[0].length)
-			throw new IllegalArgumentException("Matrici con dimensioni diverse!");
+		if (!dimensioniUguali(m1, m2)) throw new IllegalArgumentException("Matrici incompatibili!");
 		double[][] d = new double[m1.length][m1[0].length];
 		for (int i = 0; i < m1.length; i++)
 			for (int j = 0; j < m1[0].length; j++)
@@ -38,7 +36,9 @@ public final class Matrix {
 		return d;
 	} // sub
 	public static double[][] mul(double[][]m1, double[][]m2) {
-		if (m1[0].length != m2.length) throw new IllegalArgumentException("Matrici non moltiplicabili!");
+		for (int i = 0; i < m1.length; i++)
+			if (m1[i].length != m2.length)
+				throw new IllegalArgumentException("Matrici non moltiplicabili!");
 		double[][] p = new double[m1.length][m2[0].length];
 		for (int i = 0; i < p.length; i++)
 			for (int j = 0; j < p[0].length; j++)
@@ -47,7 +47,10 @@ public final class Matrix {
 		return p;
 	} // mul
 	public static double[][] sottoMatrice(double[][]m, int i, int j, int n) {
-		if (n > m.length - i || n > m[0].length - j) throw new IllegalArgumentException("Sottomatrice non presente!");
+		if (n > m.length - i) throw new IllegalArgumentException("Sottomatrice non presente!");
+		for (int r = i; r < m.length; r++)
+			if (n > m[i].length - j)
+				throw new IllegalArgumentException("Sottomatrice non presente!");
 		double[][] s = new double[n][n];
 		for (int r = 0; r < n; r++)
 			for (int c = 0; c < n; c++)
@@ -96,8 +99,18 @@ public final class Matrix {
 		return new int[] {-1,-1};
 	} // sella
 	private static boolean quadrata(double[][] m) {
-		return m.length == m[0].length;
+		for (int i = 0; i < m.length; i++)
+			if (m.length != m[i].length)
+				return false;
+		return true;
 	} // quadrata
+	private static boolean dimensioniUguali(double[][]m1, double[][]m2) {
+		if (m1.length != m2.length) return false;
+		for (int i = 0; i < m1.length; i++)
+			if (m1[i].length != m2[i].length)
+				return false;
+		return true;
+	} // dimensioniUguali
 	private static int posMinimo(double[]v) {
 		double min = v[0]; int minpos = 0;
 		for (int i = 1; i < v.length; i++)
