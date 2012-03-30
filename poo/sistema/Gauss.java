@@ -24,7 +24,7 @@ public class Gauss extends Sistema {
 				// Cerco pivot massimo per minimizzare gli errori di approssimazione
 				for (; p < n; p++)
 					if (Math.abs(a[p][j]) > Math.abs(a[pmax][j])) pmax = p;
-				if (pmax == n) throw new SistemaSingolare();
+				if (pmax == n || Mat.circaUguali(a[pmax][j], 0D)) throw new SistemaSingolare();
 				double[] tmp = a[j];
 				a[j] = a[pmax];
 				a[pmax] = tmp;
