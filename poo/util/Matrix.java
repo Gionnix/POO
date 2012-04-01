@@ -60,6 +60,7 @@ public final class Matrix {
 	public static double[][] minore(double[][] m, int i, int j) {
 		if (!quadrata(m)) throw new IllegalArgumentException("Matrice non quadrata!");
 		if (m.length == 1) throw new IllegalArgumentException("Matrice di ordine 1!");
+		if (!(i >= 0 && i < m.length) || !(j >= 0 && j < m.length)) throw new IllegalArgumentException("Minore complementare inesistente!");
 		double[][] min = new double[m.length - 1][m[0].length - 1];
 		int saltoRiga, saltoColonna;
 		for (int r = 0; r < min.length; r++) {

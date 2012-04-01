@@ -1,6 +1,6 @@
 package poo.esempi;
 
-import poo.data.Data;
+import poo.date.Data;
 
 public class TestData {
 	public static void main(String[]args) {
