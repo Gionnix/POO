@@ -1,16 +1,16 @@
 package poo.util;
 
-public interface Vector {
+public interface Vector<T> {
 	public int size();
-	public int indexOf(Object o);
-	public boolean contains(Object o);
-	public Object get(int indice);
-	public Object set(int indice, Object o);
-	public void add(Object o);
-	public void add(int indice, Object o);
-	public void remove(Object o);
-	public Object remove(int indice);
+	public int indexOf(T o);
+	public boolean contains(T o);
+	public T get(int indice);
+	public T set(int indice, T o);
+	public void add(T o);
+	public void add(int indice, T o);
+	public void remove(T o);
+	public T remove(int indice);
 	public void clear();
 	public boolean isEmpty();
-	public Vector subVector(int da, int a);
+	public Vector<T> subVector(int da, int a);
 } // Vector
