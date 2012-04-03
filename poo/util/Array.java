@@ -382,9 +382,9 @@ public final class Array{
 	} // prodottoScalare
 	public static void compatta(Vector v) {
 		for (int i = 0; i < v.size() - 1; i++)
-			for (int j = i + 1; i < v.size(); j++)
+			for (int j = i + 1; j < v.size(); j++)
 				if (v.get(i).equals(v.get(j)))
-					v.remove(j);
+					v.remove(j--);
 	} // compatta
 	public static double modulo(Vector<Double> v) {
 		double m = 0;
