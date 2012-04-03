@@ -5,6 +5,7 @@ import java.util.*;
 public class ArrayVector<T> implements Vector<T> {
 	private T[] array;
 	private int size;
+	@SuppressWarnings("unchecked")
 	public ArrayVector() { this(20); }
 	public ArrayVector(int length) {
 		if (length <= 0) throw new IllegalArgumentException();
@@ -30,15 +31,14 @@ public class ArrayVector<T> implements Vector<T> {
 		return oldElem;
 	} // set
 	public void add(T elem) {
-		if (size == array.length) espandi();
+		if (size == array.length) // espandi
+			array = Arrays.copyOf(array, array.length * 2);
 		array[size++] = elem;
 	} // add
-	private void espandi() {
-		array = Arrays.copyOf(array, array.length * 2);
-	} // espandi
 	public void add(int i, T elem) {
 		if (i < 0 || i > size) throw new IndexOutOfBoundsException();
-		if (size == array.length) espandi();
+		if (size == array.length) // espandi
+			array = Arrays.copyOf(array, array.length * 2);
 		for (int j = size - 1; j >= i; j--)
 			array[j + 1] = array[j];
 		array[i] = elem;
@@ -55,12 +55,10 @@ public class ArrayVector<T> implements Vector<T> {
 		for (int j = i + 1; j < size; j++)
 			array[j - 1] = array[j];
 		array[--size] = null;
-		if (size < array.length / 2) contrai();
+		if (size < array.length / 2) // contrai
+			array = Arrays.copyOf(array, array.length / 2);
 		return elem;
 	} // remove
-	private void contrai() {
-		array = Arrays.copyOf(array, array.length / 2);
-	} // contrai
 	public void clear() {
 		for (int i = 0; i < size; i++)
 			array[i] = null;
@@ -71,7 +69,7 @@ public class ArrayVector<T> implements Vector<T> {
 		if (da < 0 || da >= size || a < 0 || a > size || da >= a)
 			throw new RuntimeException();
 		Vector<T> v = new ArrayVector(a - da);
-		for (int j = da; j < 0; j++)
+		for (int j = da; j < a; j++)
 			v.add(array[j]);
 		return v;
 	} // subVector
@@ -86,9 +84,9 @@ public class ArrayVector<T> implements Vector<T> {
 		return sb.toString();
 	} // toString
 	public boolean equals(Object o) {
-		if (!(o instanceof Vector)) return false;
+		if (!(o instanceof Vector<?>)) return false;
 		if (o == this) return true;
-		Vector<T> v = (Vector<T>)o;
+		Vector v = (Vector)o;
 		if (size != v.size()) return false;
 		for (int i = 0; i < size; i++)
 			if (!array[i].equals(v.get(i))) return false;
@@ -97,4 +95,31 @@ public class ArrayVector<T> implements Vector<T> {
 	public int hashCode() {
 		return Arrays.hashCode(array);
 	} // hashCode
+	public static void main(String[]args) {
+		Vector<Integer> v = new ArrayVector<Integer>();
+		for (int i = 10; i > 0; i--)
+			v.add(i);
+		System.out.println(v);
+		v.clear();
+		for (int i = 10; i > 0; i--)
+			v.add(0, i);
+		System.out.println(v);
+		Vector<Integer> sv = v.subVector(4, 10);
+		System.out.println(sv);
+		Vector<String> w = new ArrayVector<String>();
+		Scanner sc = new Scanner(System.in);
+		for (;;) {
+			System.out.print("String (Solo INVIO per terminare): ");
+			String s = sc.nextLine();
+			if (s.length() == 0) break;
+			boolean flag = false; int indice = 0;
+			while (indice < w.size() && !flag) {
+				String str = w.get(indice);
+				if (str.compareTo(s) >= 0) flag = true;
+				else indice++;
+			}
+			w.add(indice, s);
+		}
+		System.out.println(w);
+	}//main
 } // ArrayVector<T>

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class TestVector {
 	public static void main(String[]args) {
 		System.out.println("Vector di Integer:");
-		Vector<Integer> v1 = new ArrayVector();
+		Vector<Integer> v1 = new ArrayVector<Integer>();
 		v1.add(new Integer(5));
 		v1.add(-3); // boxing automatico
 		v1.add(7);
@@ -17,7 +17,7 @@ public class TestVector {
 		int x = v1.get(0); // unboxing automatico
 		System.out.println("Elemento in prima posizione: " + x);
 		System.out.println("\nVector di String:");
-		Vector<String> vs = new ArrayVector(50);
+		Vector<String> vs = new ArrayVector<String>(50);
 		String[] as = {"casa", "abaco", "lupo", "zaino", "dado"};
 		System.out.println("Vettore di partenza: " + Arrays.toString(as));
 		for (i = 0; i < as.length; i++) {
