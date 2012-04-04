@@ -402,6 +402,92 @@ public final class Array{
 				m[i][j] = v[i].get(j);
 		return Matrix.determinante(m) != 0;
 	} // base
+	// Metodi su ArrayList
+	public static int ricercaLineare(ArrayList l, Object x) {
+		for (int i = 0; i < l.size(); i++)
+			if (l.get(i).equals(x)) return i;
+		return -1;
+	} // ricercaLineare
+	public static int ricercaLineareOttimizzata(ArrayList l, Object x) {
+		// l è supposto ordinato per valori crescenti
+		for (int i = 0; i < l.size(); i++) {
+			if (l.get(i).equals(x)) return i;
+			if (((Comparable)l.get(i)).compareTo(x) > 0) return -1;
+		}
+		return -1;
+	} // ricercaLineareOttimizzata
+	public static int ricercaBinaria(ArrayList l, Object x) {
+		// l è supposto ordinato per valori crescenti
+		int inf = 0, sup = l.size() - 1;
+		while (inf <= sup) {
+			int med = (inf + sup) / 2;
+			if (l.get(med).equals(x)) return med;
+			if (((Comparable)l.get(med)).compareTo(x) > 0) sup = med - 1;
+			else inf = med + 1;
+		}
+		return -1;
+	} // ricercaBinaria
+	public static void selectionSort(ArrayList l) {
+		for (int j = l.size() - 1; j > 0; j--) {
+			int indMax = 0;
+			for (int i = 1; i <= j; i++)
+				if (((Comparable)l.get(i)).compareTo(l.get(indMax)) > 0) indMax = i;
+			Object tmp = l.get(j); l.set(j, l.get(indMax));
+			l.set(indMax, tmp);
+		}
+	} // selectionSort
+	public static void bubbleSort(ArrayList l) {
+		int limite = 0; // Assegnazione fittizia
+		for (int j = l.size() - 1; j > 0; j = limite) {
+			int scambi = 0;
+			for (int i = 0; i < j; i++)
+				if (((Comparable)l.get(i)).compareTo(l.get(i + 1)) > 0) { // scambia
+					Object tmp = l.get(i); l.set(i, l.get(i + 1));
+					l.set(i + 1, tmp); scambi++; limite = i;
+				}
+				if (scambi == 0) break;
+			}
+	} // bubbleSort
+	public static void insertionSort(ArrayList l) {
+		for (int i = 1; i < l.size(); i++) {
+			Object x = l.get(i); int j = i;
+			while (j > 0 && ((Comparable)l.get(j - 1)).compareTo(x) > 0) {
+				l.set(j, l.get(j - 1)); j--;
+			}
+			l.set(j, x);
+		}
+	} // insertionSort
+	public static double prodottoScalare(ArrayList<Double> l1, ArrayList<Double> l2) {
+		if (l1.size() != l2.size()) throw new IllegalArgumentException();
+		double p = 0;
+		for (int i = 0; i < l1.size(); i++)
+			p += l1.get(i) * l2.get(i); // Unboxing automatico
+		return p;
+	} // prodottoScalare
+	public static void compatta(ArrayList l) {
+		ListIterator li = l.listIterator(); Object curr; int index = 0;
+		while (li.hasNext()) {
+			curr = li.next();
+			while (li.hasNext()) {
+				if (curr.equals(li.next()))
+					li.remove();
+			}
+			li = l.listIterator(index < l.size() ? index++ : index); // 
+		}
+	} // compatta
+	public static double modulo(ArrayList<Double> l) {
+		return Math.sqrt(prodottoScalare(l, l));
+	} // modulo
+	public static boolean base(ArrayList<Double> ... l) {
+		int n = l.length;
+		for (int i = 0; i < n; i++)
+			if (l[i].size() != n) return false;
+		double[][] m = new double[n][n];
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				m[i][j] = l[i].get(j);
+		return Matrix.determinante(m) != 0;
+	} // base
 	public static void main(String[]args) {
 		int[] a = {13, 2, 10, 4, 9, 5};
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));
@@ -414,5 +500,14 @@ public final class Array{
 		System.out.println("Vector dopo l'ordinamento:\n" + v);
 		int x = 5; int i = ricercaBinaria(v, x);
 		System.out.println(x + " si trova nel vettore in posizione " + i);
+		ArrayList<String> ls = new ArrayList<String>();
+		ls.add("casa"); ls.add("dado"); ls.add("lupo"); ls.add("dado"); ls.add("abaco"); ls.add("lupo");
+		System.out.println("Lista di stringhe con duplicati: " + ls);
+		compatta(ls);
+		System.out.println("Lista senza duplicati: " + ls);
+		ArrayList<Double> e1 = new ArrayList<Double>(); e1.add(1D); e1.add(0D); e1.add(0D); // (1, 0, 0)
+		ArrayList<Double> e2 = new ArrayList<Double>(); e2.add(0D); e2.add(1D); e2.add(0D); // (0, 1, 0)
+		ArrayList<Double> e3 = new ArrayList<Double>(); e3.add(0D); e3.add(0D); e3.add(1D); // (0, 0, 1)
+		System.out.println("L'insieme [" + e1 + ", " + e2 + ", " + e3 + "]\ncostituisce una base di R3: " + base(e1, e2, e3));
 	} // main
 } // Util
