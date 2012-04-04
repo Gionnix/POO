@@ -2,7 +2,7 @@ package poo.date;
 
 import java.util.*;
 
-public class Data implements Comparable {
+public class Data implements Comparable<Data> {
 	private int g, m, a;
 	public enum Elemento {GIORNO, MESE, ANNO};
 	public Data() {
@@ -65,9 +65,9 @@ public class Data implements Comparable {
 		return new Data(gg, mm, aa);
 	} // giornoPrima
 	public int distanza(Data d) {
-		Data d1, d2; int a2 = d.get(Elemento.ANNO), m2 = d.get(Elemento.MESE), g2 = d.get(Elemento.GIORNO);
+		if (this.equals(d)) return 0;
+		int a2 = d.get(Elemento.ANNO), m2 = d.get(Elemento.MESE), g2 = d.get(Elemento.GIORNO);
 		if (a < a2 || (a == a2 && m < m2) || (a == a2 && m == m2 && g < g2)) return distanzaGiorni(this, d);
-		else if (a == a2 && m == m2 && g == g2) return 0;
 		else return -distanzaGiorni(d, this);
 	} // distanza
 	private static int distanzaGiorni(Data d1, Data d2) {
@@ -109,8 +109,7 @@ public class Data implements Comparable {
 		final int PRIMO = 163;
 		return (g * PRIMO + m) * PRIMO + a;
 	} // hashCode
-	public int compareTo(Object o) {
-		Data d = (Data)o;
+	public int compareTo(Data d) {
 		return -distanza(d);
 	} // compareTo
 } // Data
