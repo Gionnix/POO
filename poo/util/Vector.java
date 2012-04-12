@@ -1,6 +1,6 @@
 package poo.util;
 
-public interface Vector<T> {
+public interface Vector<T> extends Iterable<T> {
 	public int size();
 	public int indexOf(T o);
 	public boolean contains(T o);

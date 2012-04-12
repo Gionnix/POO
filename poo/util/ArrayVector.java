@@ -95,6 +95,25 @@ public class ArrayVector<T> implements Vector<T> {
 	public int hashCode() {
 		return Arrays.hashCode(array);
 	} // hashCode
+	public Iterator<T> iterator() {
+		return new Iteratore();
+	}
+	private class Iteratore implements Iterator<T> { // inner class
+		private int corrente = -1;
+		private boolean rimovibile = false;
+		public boolean hasNext() {
+			return corrente < size - 1;
+		} // hasNext
+		public T next() {
+			if (!hasNext()) throw new NoSuchElementException();
+			rimovibile = true;
+			return array[++corrente];
+		} // next
+		public void remove() {
+			if (!rimovibile) throw new IllegalStateException();
+			ArrayVector.this.remove(corrente--); rimovibile = false;
+		} // remove
+	} // Iteratore
 	public static void main(String[]args) {
 		Vector<Integer> v = new ArrayVector<Integer>();
 		for (int i = 10; i > 0; i--)
@@ -108,11 +127,12 @@ public class ArrayVector<T> implements Vector<T> {
 		System.out.println(sv);
 		Vector<String> w = new ArrayVector<String>();
 		Scanner sc = new Scanner(System.in);
+		boolean flag; int indice;
 		for (;;) {
 			System.out.print("String (Solo INVIO per terminare): ");
 			String s = sc.nextLine();
 			if (s.length() == 0) break;
-			boolean flag = false; int indice = 0;
+			flag = false; indice = 0;
 			while (indice < w.size() && !flag) {
 				String str = w.get(indice);
 				if (str.compareTo(s) >= 0) flag = true;
