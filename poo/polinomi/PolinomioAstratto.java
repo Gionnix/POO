@@ -32,14 +32,15 @@ public abstract class PolinomioAstratto implements Polinomio {
 		return prodotto;
 	} // mul
 	public double valore(double x) { // Formula di Horner
-		double valore = 0; int gradoPrec = 0;
+		double valore = 0; int gradoPrec = 0; int salto;
 		for (Monomio m: this) {
-			int salto = gradoPrec - m.getGrado();
+			salto = gradoPrec - m.getGrado();
 			for (int i = 1; i < salto; i++)
-				valore = valore * x;
+				valore *= x;
 			valore = valore * x + m.getCoeff();
 			gradoPrec = m.getGrado();
 		}
+		for (int i = 0; i < gradoPrec; i++) valore *= x;
 		return valore;
 	} // valore
 	public Polinomio derivata() {
