@@ -37,13 +37,14 @@ public class GestioneAgendina {
 				agenda=new AgendinaVector(capacita);
 		}
 		sc.nextLine();
-		comandi();
+		comandi(); char comando;
 		for (;;) {
 			System.out.print("> ");
-			linea = sc.nextLine();
+			String linea = sc.nextLine();
+			if (linea.equals("")) continue;
 			st = new StringTokenizer(linea, " ");
-			char comando = st.nextToken().toUpperCase().charAt(0);
 			try {
+				comando = st.nextToken().toUpperCase().charAt(0);
 				switch (comando) {
 					case 'A': aggiungiNominativo(); break;
 					case 'R': rimuoviNominativo(); break;
@@ -58,6 +59,7 @@ public class GestioneAgendina {
 				}
 			} catch (Exception e) {
 				System.out.println("Dati incompleti!");
+				e.printStackTrace();
 			}
 		}
 	} // main

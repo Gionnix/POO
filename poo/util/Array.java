@@ -2,8 +2,8 @@ package poo.util;
 
 import java.util.*;
 
-public final class Array{
-	private Array() {}
+public final class Array {
+	private Array() {} // Non istanziabile
 	public static int ricercaLineare(int[] v, int x) {
 		for (int i = 0; i < v.length; i++)
 			if (v[i] == x) return i;
@@ -30,12 +30,12 @@ public final class Array{
 		}
 		return -1;
 	} // ricercaLineareOttimizzata
-	public static int ricercaLineare(Comparable[] v, Comparable x) {
+	public static <T> int ricercaLineare(T[] v, T x) {
 		for (int i = 0; i < v.length; i++)
-			if (v[i].compareTo(x) == 0) return i;
+			if (v[i].equals(x)) return i;
 		return -1;
 	} // ricercaLineare
-	public static int ricercaLineareOttimizzata(Comparable[] v, Comparable x) {
+	public static <T extends Comparable<? super T>> int ricercaLineareOttimizzata(T[] v, T x) {
 		// v è supposto ordinato per valori crescenti
 		for (int i = 0; i < v.length; i++) {
 			if (v[i].compareTo(x) == 0) return i;
@@ -67,13 +67,13 @@ public final class Array{
 			if (scambi == 0) break;
 		}
 	} // bubbleSort
-	public static void bubbleSort(Comparable[] v) {
+	public static <T extends Comparable<? super T>> void bubbleSort(T[] v) {
 		int limite = 0; // Assegnazione fittizia
 		for (int j = v.length - 1; j > 0; j = limite) {
 			int scambi = 0;
 			for (int i = 0; i < j; i++)
 				if (v[i].compareTo(v[i + 1]) > 0) { // scambia
-					Comparable tmp = v[i]; v[i] = v[i + 1];
+					T tmp = v[i]; v[i] = v[i + 1];
 					v[i + 1] = tmp; scambi++; limite = i;
 				}
 			if (scambi == 0) break;
@@ -97,12 +97,12 @@ public final class Array{
 			v[indMax] = tmp;
 		}
 	} // selectionSort
-	public static void selectionSort(Comparable[] v) {
+	public static <T extends Comparable<? super T>> void selectionSort(T[] v) {
 		for (int j = v.length - 1; j > 0; j--) {
 			int indMax = 0;
 			for (int i = 1; i<=j; i++)
 				if (v[i].compareTo(v[indMax]) > 0) indMax=i;
-			Comparable tmp = v[j]; v[j] = v[indMax];
+			T tmp = v[j]; v[j] = v[indMax];
 			v[indMax] = tmp;
 		}
 	} // selectionSort
@@ -124,9 +124,9 @@ public final class Array{
 			v[j] = x;
 		}
 	} // insertionSort
-	public static void insertionSort(Comparable[] v) {
+	public static <T extends Comparable<? super T>> void insertionSort(T[] v) {
 		for (int i = 1; i < v.length; i++) {
-			Comparable x = v[i]; int j = i;
+			T x = v[i]; int j = i;
 			while (j > 0 && v[j - 1].compareTo(x) > 0) {
 				v[j] = v[j - 1]; j--;
 			}
@@ -155,7 +155,7 @@ public final class Array{
 		}
 		return -1;
 	} // ricercaBinaria
-	public static int ricercaBinaria(Comparable[] v, Comparable x) {
+	public static <T extends Comparable<? super T>> int ricercaBinaria(T[] v, T x) {
 		// v è supposto ordinato per valori crescenti
 		int inf = 0, sup = v.length - 1;
 		while (inf <= sup) {
@@ -167,17 +167,17 @@ public final class Array{
 		}
 		return -1;
 	} // ricercaBinaria
-	public static int ricercaLineare(Comparable[] v, Comparable x, int size) {
+	public static <T> int ricercaLineare(T[] v, T x, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		for (int i = 0; i < size; i++)
-			if (v[i].compareTo(x) == 0) return i;
+			if (v[i].equals(x)) return i;
 		return -1;
 	} // ricercaLineare
-	public static int ricercaLineareOttimizzata(Comparable[] v, Comparable x, int size) {
+	public static <T extends Comparable<? super T>> int ricercaLineareOttimizzata(T[] v, T x, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		// v è supposto ordinato per valori crescenti
 		for (int i = 0; i < size; i++) {
-			if (v[i].compareTo(x) == 0) return i;
+			if (v[i].equals(x)) return i;
 			if (v[i].compareTo(x) > 0) return -1;
 		}
 		return -1;
@@ -208,14 +208,14 @@ public final class Array{
 			if (scambi == 0) break;
 		}
 	} // bubbleSort
-	public static void bubbleSort(Comparable[] v, int size) {
+	public static <T extends Comparable<? super T>> void bubbleSort(T[] v, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		int limite = 0; // Assegnazione fittizia
 		for (int j = size - 1; j > 0; j = limite) {
 			int scambi = 0;
 			for (int i = 0; i < j; i++)
 				if (v[i].compareTo(v[i + 1]) > 0) { // scambia
-					Comparable tmp = v[i]; v[i] = v[i + 1];
+					T tmp = v[i]; v[i] = v[i + 1];
 					v[i + 1] = tmp; scambi++; limite = i;
 				}
 			if (scambi == 0) break;
@@ -241,13 +241,13 @@ public final class Array{
 			v[indMax] = tmp;
 		}
 	} // selectionSort
-	public static void selectionSort(Comparable[] v, int size) {
+	public static <T extends Comparable<? super T>> void selectionSort(T[] v, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		for (int j = size - 1; j > 0; j--) {
 			int indMax = 0;
 			for (int i = 1; i <= j; i++)
 				if (v[i].compareTo(v[indMax]) > 0) indMax = i;
-			Comparable tmp = v[j]; v[j] = v[indMax];
+			T tmp = v[j]; v[j] = v[indMax];
 			v[indMax] = tmp;
 		}
 	} // selectionSort
@@ -271,10 +271,10 @@ public final class Array{
 			v[j] = x;
 		}
 	} // insertionSort
-	public static void insertionSort(Comparable[] v, int size) {
+	public static <T extends Comparable<? super T>> void insertionSort(T[] v, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		for (int i = 1; i < v.length; i++) {
-			Comparable x = v[i]; int j = i;
+			T x = v[i]; int j = i;
 			while (j > 0 && v[j - 1].compareTo(x) > 0) {
 				v[j] = v[j - 1]; j--;
 			}
@@ -305,7 +305,7 @@ public final class Array{
 		}
 		return -1;
 	} // ricercaBinaria
-	public static int ricercaBinaria(Comparable[] v, Comparable x, int size) {
+	public static <T extends Comparable<? super T>> int ricercaBinaria(T[] v, T x, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		// v è supposto ordinato per valori crescenti
 		int inf=0, sup=size - 1;
@@ -319,55 +319,55 @@ public final class Array{
 		return -1;
 	} // ricercaBinaria
 	// Metodi su Vector
-	public static int ricercaLineare(Vector v, Object x) {
+	public static <T> int ricercaLineare(Vector<T> v, T x) {
 		for (int i = 0; i < v.size(); i++)
 			if (v.get(i).equals(x)) return i;
 		return -1;
 	} // ricercaLineare
-	public static int ricercaLineareOttimizzata(Vector v, Object x) {
+	public static <T extends Comparable<? super T>> int ricercaLineareOttimizzata(Vector<T> v, T x) {
 		// v è supposto ordinato per valori crescenti
 		for (int i = 0; i < v.size(); i++) {
 			if (v.get(i).equals(x)) return i;
-			if (((Comparable)v.get(i)).compareTo(x) > 0) return -1;
+			if (v.get(i).compareTo(x) > 0) return -1;
 		}
 		return -1;
 	} // ricercaLineareOttimizzata
-	public static int ricercaBinaria(Vector v, Object x) {
+	public static <T extends Comparable<? super T>> int ricercaBinaria(Vector<T> v, T x) {
 		// v è supposto ordinato per valori crescenti
 		int inf = 0, sup = v.size() - 1;
 		while (inf <= sup) {
 			int med = (inf + sup) / 2;
 			if (v.get(med).equals(x)) return med;
-			if (((Comparable)v.get(med)).compareTo(x) > 0) sup = med - 1;
+			if (v.get(med).compareTo(x) > 0) sup = med - 1;
 			else inf = med + 1;
 		}
 		return -1;
 	} // ricercaBinaria
-	public static void selectionSort(Vector v) {
+	public static <T extends Comparable<? super T>> void selectionSort(Vector<T> v) {
 		for (int j = v.size() - 1; j > 0; j--) {
 			int indMax = 0;
 			for (int i = 1; i <= j; i++)
-				if (((Comparable)v.get(i)).compareTo(v.get(indMax)) > 0) indMax = i;
-			Object tmp = v.get(j); v.set(j, v.get(indMax));
+				if (v.get(i).compareTo(v.get(indMax)) > 0) indMax = i;
+			T tmp = v.get(j); v.set(j, v.get(indMax));
 			v.set(indMax, tmp);
 		}
 	} // selectionSort
-	public static void bubbleSort(Vector v) {
+	public static <T extends Comparable<? super T>> void bubbleSort(Vector<T> v) {
 		int limite = 0; // Assegnazione fittizia
 		for (int j = v.size() - 1; j > 0; j = limite) {
 			int scambi = 0;
 			for (int i = 0; i < j; i++)
-				if (((Comparable)v.get(i)).compareTo(v.get(i + 1)) > 0) { // scambia
-					Object tmp = v.get(i); v.set(i, v.get(i + 1));
+				if (v.get(i).compareTo(v.get(i + 1)) > 0) { // scambia
+					T tmp = v.get(i); v.set(i, v.get(i + 1));
 					v.set(i + 1, tmp); scambi++; limite = i;
 				}
 				if (scambi == 0) break;
 			}
 	} // bubbleSort
-	public static void insertionSort(Vector v) {
+	public static <T extends Comparable<? super T>> void insertionSort(Vector<T> v) {
 		for (int i = 1; i < v.size(); i++) {
-			Object x = v.get(i); int j = i;
-			while (j > 0 && ((Comparable)v.get(j - 1)).compareTo(x) > 0) {
+			T x = v.get(i); int j = i;
+			while (j > 0 && v.get(j - 1).compareTo(x) > 0) {
 				v.set(j, v.get(j - 1)); j--;
 			}
 			v.set(j, x);
@@ -380,7 +380,7 @@ public final class Array{
 			p += v1.get(i) * v2.get(i); // Unboxing automatico
 		return p;
 	} // prodottoScalare
-	public static void compatta(Vector v) {
+	public static <T> void compatta(Vector<T> v) {
 		for (int i = 0; i < v.size() - 1; i++)
 			for (int j = i + 1; j < v.size(); j++)
 				if (v.get(i).equals(v.get(j)))
@@ -403,55 +403,55 @@ public final class Array{
 		return Matrix.determinante(m) != 0;
 	} // base
 	// Metodi su ArrayList
-	public static int ricercaLineare(ArrayList l, Object x) {
+	public static <T> int ricercaLineare(ArrayList<T> l, Object x) {
 		for (int i = 0; i < l.size(); i++)
 			if (l.get(i).equals(x)) return i;
 		return -1;
 	} // ricercaLineare
-	public static int ricercaLineareOttimizzata(ArrayList l, Object x) {
+	public static <T extends Comparable<? super T>> int ricercaLineareOttimizzata(ArrayList<T> l, T x) {
 		// l è supposto ordinato per valori crescenti
 		for (int i = 0; i < l.size(); i++) {
 			if (l.get(i).equals(x)) return i;
-			if (((Comparable)l.get(i)).compareTo(x) > 0) return -1;
+			if (l.get(i).compareTo(x) > 0) return -1;
 		}
 		return -1;
 	} // ricercaLineareOttimizzata
-	public static int ricercaBinaria(ArrayList l, Object x) {
+	public static <T extends Comparable<? super T>> int ricercaBinaria(ArrayList<T> l, T x) {
 		// l è supposto ordinato per valori crescenti
 		int inf = 0, sup = l.size() - 1;
 		while (inf <= sup) {
 			int med = (inf + sup) / 2;
 			if (l.get(med).equals(x)) return med;
-			if (((Comparable)l.get(med)).compareTo(x) > 0) sup = med - 1;
+			if (l.get(med).compareTo(x) > 0) sup = med - 1;
 			else inf = med + 1;
 		}
 		return -1;
 	} // ricercaBinaria
-	public static void selectionSort(ArrayList l) {
+	public static <T extends Comparable<? super T>> void selectionSort(ArrayList<T> l) {
 		for (int j = l.size() - 1; j > 0; j--) {
 			int indMax = 0;
 			for (int i = 1; i <= j; i++)
-				if (((Comparable)l.get(i)).compareTo(l.get(indMax)) > 0) indMax = i;
-			Object tmp = l.get(j); l.set(j, l.get(indMax));
+				if (l.get(i).compareTo(l.get(indMax)) > 0) indMax = i;
+			T tmp = l.get(j); l.set(j, l.get(indMax));
 			l.set(indMax, tmp);
 		}
 	} // selectionSort
-	public static void bubbleSort(ArrayList l) {
+	public static <T extends Comparable<? super T>> void bubbleSort(ArrayList<T> l) {
 		int limite = 0; // Assegnazione fittizia
 		for (int j = l.size() - 1; j > 0; j = limite) {
 			int scambi = 0;
 			for (int i = 0; i < j; i++)
-				if (((Comparable)l.get(i)).compareTo(l.get(i + 1)) > 0) { // scambia
-					Object tmp = l.get(i); l.set(i, l.get(i + 1));
+				if (l.get(i).compareTo(l.get(i + 1)) > 0) { // scambia
+					T tmp = l.get(i); l.set(i, l.get(i + 1));
 					l.set(i + 1, tmp); scambi++; limite = i;
 				}
 				if (scambi == 0) break;
 			}
 	} // bubbleSort
-	public static void insertionSort(ArrayList l) {
+	public static <T extends Comparable<? super T>> void insertionSort(ArrayList<T> l) {
 		for (int i = 1; i < l.size(); i++) {
-			Object x = l.get(i); int j = i;
-			while (j > 0 && ((Comparable)l.get(j - 1)).compareTo(x) > 0) {
+			T x = l.get(i); int j = i;
+			while (j > 0 && l.get(j - 1).compareTo(x) > 0) {
 				l.set(j, l.get(j - 1)); j--;
 			}
 			l.set(j, x);
@@ -464,15 +464,15 @@ public final class Array{
 			p += l1.get(i) * l2.get(i); // Unboxing automatico
 		return p;
 	} // prodottoScalare
-	public static void compatta(ArrayList l) {
-		ListIterator li = l.listIterator(); Object curr; int index = 0;
+	public static <T> void compatta(ArrayList<T> l) {
+		ListIterator<T> li = l.listIterator(); T curr; int index = 0;
 		while (li.hasNext()) {
 			curr = li.next();
 			while (li.hasNext()) {
 				if (curr.equals(li.next()))
 					li.remove();
 			}
-			li = l.listIterator(index < l.size() ? index++ : index); // 
+			li = l.listIterator(index < l.size() ? index++ : index);
 		}
 	} // compatta
 	public static double modulo(ArrayList<Double> l) {
@@ -493,7 +493,7 @@ public final class Array{
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));
 		insertionSort(a);
 		System.out.println("Vettore di interi dopo l'ordinamento:\n" + Arrays.toString(a));
-		Vector v = new ArrayVector();
+		Vector<Integer> v = new ArrayVector<Integer>();
 		v.add(13); v.add(2); v.add(10); v.add(4); v.add(9); v.add(5);
 		System.out.println("Vector prima dell'ordinamento:\n" + v);
 		insertionSort(v);

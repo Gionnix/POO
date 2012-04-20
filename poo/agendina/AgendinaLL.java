@@ -14,12 +14,12 @@ public class AgendinaLL extends AgendinaAstratta {
 		ListIterator<Nominativo> li = tabella.listIterator();
 		while (li.hasNext()) {
 			Nominativo x = li.next();
-			if (x.equals(n)) li.set(n);
-			if (li.next().compareTo(n) >= 0) {
-				li.previous(); li.add(n); break;
+			if (x.equals(n)) { li.set(n); return; }
+			else if (x.compareTo(n) > 0) {
+				li.previous(); li.add(n); return;
 			}
 		}
-		if (!li.hasNext()) li.add(n);
+		li.add(n);
 	} // aggiungi
 	public Iterator<Nominativo> iterator() {
 		return tabella.iterator();
