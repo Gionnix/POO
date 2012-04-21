@@ -2,8 +2,8 @@ package poo.polinomi;
 
 public class TestPolinomi {
 	public static void main(String[]args) {
-		Polinomio p1 = new PolinomioLL();
-		Polinomio p2 = new PolinomioLL();
+		Polinomio p1 = new PolinomioMap();
+		Polinomio p2 = new PolinomioMap();
 		p1.add(new Monomio(-2, 3)); p1.add(new Monomio(3, 0));
 		p2.add(new Monomio(5, 4)); p2.add(new Monomio(2, 3));
 		p2.add(new Monomio(-3, 1)); p2.add(new Monomio(7, 0));
