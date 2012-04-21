@@ -11,8 +11,7 @@ public abstract class CrivelloAstratto implements Crivello {
 		int c = 0;
 		for (int x: this) {
 			sb.append(String.format("%8d", x));
-			c++;
-			if (c % 8 == 0) sb.append('\n');
+			if (++c % 8 == 0) sb.append('\n');
 		}
 		return sb.toString();
 	} // toString
