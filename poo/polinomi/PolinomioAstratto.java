@@ -76,6 +76,6 @@ public abstract class PolinomioAstratto implements Polinomio {
 			if (m.getCoeff() > 0) sb.append('+');
 			sb.append(m);
 		}
-		return sb.substring(sb.charAt(0) == '+' ? 1 : 0);
+		return sb.substring(sb.length() > 0 && sb.charAt(0) == '+' ? 1 : 0);
 	} // toString
 } // PolinomioAstratto
