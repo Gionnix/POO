@@ -319,7 +319,7 @@ public final class Array {
 		return -1;
 	} // ricercaBinaria
 	// Metodi su Vector
-	public static <T> int ricercaLineare(Vector<T> v, T x) {
+	public static int ricercaLineare(Vector<?> v, Object x) {
 		for (int i = 0; i < v.size(); i++)
 			if (v.get(i).equals(x)) return i;
 		return -1;
@@ -403,7 +403,7 @@ public final class Array {
 		return Matrix.determinante(m) != 0;
 	} // base
 	// Metodi su ArrayList
-	public static <T> int ricercaLineare(ArrayList<T> l, Object x) {
+	public static int ricercaLineare(ArrayList<?> l, Object x) {
 		for (int i = 0; i < l.size(); i++)
 			if (l.get(i).equals(x)) return i;
 		return -1;
