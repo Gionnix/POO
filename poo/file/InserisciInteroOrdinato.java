@@ -36,5 +36,6 @@ public class InserisciInteroOrdinato {
 			fout.write(dato);
 		}
 		fin.close(); fout.close();
+		(new File("tmp")).delete();
 	} // inserisci
 } // InserisciInteroOrdinato
