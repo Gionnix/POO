@@ -27,15 +27,7 @@ public class InserisciInteroOrdinato {
 			pos = raf.getFilePointer();
 		}
 		raf.close(); dos.close();
-		BufferedInputStream fin = new BufferedInputStream(new FileInputStream("tmp"));
-		BufferedOutputStream fout = new BufferedOutputStream(new FileOutputStream(nome));
-		int dato = 0;
-		for (;;) {
-			dato = fin.read();
-			if (dato == -1) break;
-			fout.write(dato);
-		}
-		fin.close(); fout.close();
-		(new File("tmp")).delete();
+		File f = new File(nome); f.delete();
+		(new File("tmp")).renameTo(f);
 	} // inserisci
 } // InserisciInteroOrdinato
