@@ -488,6 +488,7 @@ public final class Array {
 				m[i][j] = l[i].get(j);
 		return Matrix.determinante(m) != 0;
 	} // base
+	@SuppressWarnings("unchecked")
 	public static void main(String[]args) {
 		int[] a = {13, 2, 10, 4, 9, 5};
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));

@@ -74,7 +74,7 @@ public final class Matrix {
 	} // minore
 	public static boolean quadratoMagico(double[][]m) {
 		if (!quadrata(m)) throw new IllegalArgumentException("Matrice non quadrata!");
-		double somma = 0, d1 = 0, d2 = 0;
+		double d1 = 0D, d2 = 0D;
 		for (int i = 0; i < m.length; i++)
 			d1 += m[i][i]; // Diagonale principale
 		for (int i = 0; i < m.length; i++)

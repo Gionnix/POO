@@ -2,7 +2,6 @@ package poo.file;
 
 import java.io.*;
 import java.util.*;
-import javax.swing.*;
 
 public class Cifrario {
 	public static void main(String[]args) {

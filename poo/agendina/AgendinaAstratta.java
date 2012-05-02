@@ -41,7 +41,7 @@ public abstract class AgendinaAstratta implements Agendina {
 		return null;
 	} // cerca
 	public void salva(String nomeFile) throws IOException {
-		PrintWriter pw = new PrintWriter(new FileWriter(nomeFile));
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(nomeFile)));
 		for (Nominativo n: this) pw.println(n);
 		pw.close();
 	} // salva

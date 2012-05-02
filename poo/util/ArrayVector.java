@@ -5,8 +5,8 @@ import java.util.*;
 public class ArrayVector<T> implements Vector<T> {
 	private T[] array;
 	private int size;
-	@SuppressWarnings("unchecked")
 	public ArrayVector() { this(20); }
+	@SuppressWarnings("unchecked")
 	public ArrayVector(int length) {
 		if (length <= 0) throw new IllegalArgumentException();
 		array = (T[])new Object[length]; size = 0;
@@ -68,7 +68,7 @@ public class ArrayVector<T> implements Vector<T> {
 	public Vector<T> subVector(int da, int a) {
 		if (da < 0 || da >= size || a < 0 || a > size || da >= a)
 			throw new RuntimeException();
-		Vector<T> v = new ArrayVector(a - da);
+		Vector<T> v = new ArrayVector<T>(a - da);
 		for (int j = da; j < a; j++)
 			v.add(array[j]);
 		return v;
@@ -86,7 +86,7 @@ public class ArrayVector<T> implements Vector<T> {
 	public boolean equals(Object o) {
 		if (!(o instanceof Vector<?>)) return false;
 		if (o == this) return true;
-		Vector v = (Vector)o;
+		Vector<?> v = (Vector<?>)o;
 		if (size != v.size()) return false;
 		for (int i = 0; i < size; i++)
 			if (!array[i].equals(v.get(i))) return false;

@@ -1,7 +1,6 @@
 package poo.agendina;
 
 import java.io.*;
-import java.util.*;
 
 public interface Agendina extends Iterable<Nominativo> {
 	public int size();
