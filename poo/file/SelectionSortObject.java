@@ -6,7 +6,7 @@ import java.util.*;
 public class SelectionSortObject {
 	public static void main(String[]args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Nome file di Integer (serializzati) da leggere: ");
+		System.out.print("Nome file di Integer (serializzati) da ordinare: ");
 		String nomeFile = sc.nextLine();
 		ObjectFile<Integer> f = null, tmp1 = null, tmp2 = null;
 		try {
