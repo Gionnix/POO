@@ -18,25 +18,25 @@ public class MergeFile {
 			f1 = new ObjectFile<Integer>(nome1, ObjectFile.Modo.LETTURA);
 			f2 = new ObjectFile<Integer>(nome2, ObjectFile.Modo.LETTURA);
 			f3 = new ObjectFile<Integer>(nome3, ObjectFile.Modo.SCRITTURA);
-			int x1 = 0, x2 = 0, x3 = 0; boolean first = true;
+			int x1 = 0, x2 = 0, prev = 0; boolean first = true;
 			while (!f1.eof() && !f2.eof()) {
 				x1 = f1.peek(); x2 = f2.peek();
 				if (x1 < x2) {
 					f1.get();
-					if (first || x1 != x3) { f3.put(x1); x3 = x1; }
+					if (first || x1 != prev) { f3.put(x1); prev = x1; }
 				} else {
 					f2.get();
-					if (first || x2 != x3) { f3.put(x2); x3 = x2; }
+					if (first || x2 != prev) { f3.put(x2); prev = x2; }
 				}
 				first = false;
 			}
 			while (!f1.eof()) {
 				x1 = f1.peek(); f1.get();
-				if (first || x1 != x3) { f3.put(x1); x3 = x1; }
+				if (first || x1 != prev) { f3.put(x1); prev = x1; }
 			}
 			while (!f2.eof()) {
 				x2 = f2.peek(); f2.get();
-				if (first || x2 != x3) { f3.put(x2); x3 = x2; }
+				if (first || x2 != prev) { f3.put(x2); prev = x2; }
 			}
 		} catch (Exception e) {
 			System.out.println("Errore di lettura/scrittura!");
