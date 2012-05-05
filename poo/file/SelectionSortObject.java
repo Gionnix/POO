@@ -8,6 +8,10 @@ public class SelectionSortObject {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Nome file di Integer (serializzati) da ordinare: ");
 		String nomeFile = sc.nextLine();
+		while (!(new File(nomeFile)).exists()) {
+			System.out.print(nomeFile + " non esiste! Ridare nome file: ");
+			nomeFile = sc.nextLine();
+		}
 		ObjectFile<Integer> f = null, tmp1 = null, tmp2 = null;
 		try {
 			f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.LETTURA);
@@ -37,7 +41,7 @@ public class SelectionSortObject {
 			}
 		}
 	} // main
-	public static void selectMin(ObjectFile<Integer> f, ObjectFile<Integer> tmp1, ObjectFile<Integer> tmp2) throws IOException {
+	static void selectMin(ObjectFile<Integer> f, ObjectFile<Integer> tmp1, ObjectFile<Integer> tmp2) throws IOException {
 		int min = f.peek(); f.get(); int x = 0;
 		while (!f.eof()) {
 			x = f.peek();
@@ -46,5 +50,5 @@ public class SelectionSortObject {
 			f.get();
 		}
 		tmp1.put(min);
-	}
+	} // selectMin
 } // SelectionSortObject

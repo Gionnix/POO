@@ -11,12 +11,13 @@ public class CreaFileInteri {
 		DataOutputStream dos = null;
 		try {
 			dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(nomeFile)));
-			System.out.println("Inserire numeri interi (0 per terminare):");
+			System.out.println("Inserire numeri interi (solo INVIO per terminare):");
 			int x = 0;
 			for (;;) {
-				x = sc.nextInt();
-				if (x == 0) break;
-				dos.writeInt(x);
+				System.out.print("int> ");
+				String line = sc.nextLine();
+				if (line.equals("")) break;
+				dos.writeInt(Integer.parseInt(line));
 			}
 		} catch (Exception e) {
 			System.out.println("Errore di lettura/scrittura!");
