@@ -29,9 +29,9 @@ public class NaturalMergeSort {
 				f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.SCRITTURA);
 				tmp1 = new ObjectFile<Integer>("tmp1", ObjectFile.Modo.LETTURA);
 				tmp2 = new ObjectFile<Integer>("tmp2", ObjectFile.Modo.LETTURA);
-				for (int i = 0; i < n / 2; i++)
+				for (int i = 0; i < n / 2 + 1; i++)
 					fondiSegmenti(f, tmp1, tmp2);
-				while (!tmp1.eof()) { f.put(tmp1.peek()); tmp1.get(); } 
+				//while (!tmp1.eof()) { f.put(tmp1.peek()); tmp1.get(); } 
 				f.close(); tmp1.close(); tmp2.close();
 				f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.LETTURA);
 				tmp1 = new ObjectFile<Integer>("tmp1", ObjectFile.Modo.SCRITTURA);
@@ -89,10 +89,9 @@ public class NaturalMergeSort {
 					if (tmp2.eof() || tmp2.peek() < x2) break;
 				}
 			}
-		} else {
-			if (!tmp1.eof()) x1 = tmp1.peek();
-			else x2 = tmp2.peek();
 		}
+		else if (!tmp1.eof()) x1 = tmp1.peek();
+		else if (!tmp2.eof()) x2 = tmp2.peek();
 		while (!tmp1.eof() && tmp1.peek() >= x1) { f.put(x1 = tmp1.peek()); tmp1.get(); }
 		while (!tmp2.eof() && tmp2.peek() >= x2) { f.put(x2 = tmp2.peek()); tmp2.get(); }
 	} // fondiSegmenti
