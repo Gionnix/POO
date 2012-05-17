@@ -198,14 +198,12 @@ class FinestraGUISenzaInvio extends JFrame {
 			setSize(400, 150);
 		} // Costruttore
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == ok) {
-				if (verificaUscita()) {
-					agendina.aggiungi(new Nominativo(
-						cognome.getText().toUpperCase(), nome.getText().toUpperCase(),
-						prefisso.getText(), telefono.getText()));
-					this.setVisible(false);
-					clear();
-				}
+			if (verificaUscita()) {
+				agendina.aggiungi(new Nominativo(
+					cognome.getText().toUpperCase(), nome.getText().toUpperCase(),
+					prefisso.getText(), telefono.getText()));
+				this.setVisible(false);
+				clear();
 			}
 		} // actionPerformed
 		private boolean verificaUscita() {

@@ -32,6 +32,7 @@ class FinestraGUI extends JFrame {
 			}
 		});
 		AscoltatoreEventiAzione listener = new AscoltatoreEventiAzione();
+
 		// Creazione barra dei menu
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -317,8 +318,8 @@ class FinestraGUI extends JFrame {
 					if (verificaUscita()) cercaTelefono();
 					else FrameTelefonoDi.this.setVisible(false);
 					clear();
-				}
-			});
+				} // windowClosing
+			}); // WindowAdapter
 			JPanel p = new JPanel();
 			p.setLayout(new FlowLayout());
 			p.add(new JLabel("Cognome: ", JLabel.RIGHT));
@@ -334,7 +335,7 @@ class FinestraGUI extends JFrame {
 			ok.addActionListener(this);
 			setLocation(225, 340);
 			setSize(450, 150);
-		}
+		} // Costruttore
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == cognome) {
 				FinestraGUI.this.cognome = cognome.getText();
@@ -354,7 +355,7 @@ class FinestraGUI extends JFrame {
 			if (n != null)
 				JOptionPane.showMessageDialog(null, "Telefono della persona cercata: " +
 					n.getPrefisso() + "-" + n.getTelefono());
-			else JOptionPane.showMessageDialog(null, "Nominativo inesistente!" );
+			else JOptionPane.showMessageDialog(null, "Nominativo inesistente!");
 		} // cercaTelefono
 		private boolean verificaUscita() {
 			return cognomeOk && nomeOk;
@@ -377,8 +378,8 @@ class FinestraGUI extends JFrame {
 					if (verificaUscita()) cercaPersona();
 					else FramePersonaDi.this.setVisible(false);
 					clear();
-				}
-			});
+				} // windowClosing
+			}); // WindowAdapter
 			JPanel p=new JPanel();
 			p.setLayout(new FlowLayout());
 			p.add(new JLabel("Prefisso: ", JLabel.RIGHT));
@@ -477,7 +478,7 @@ class FinestraGUI extends JFrame {
 	private boolean consensoUscita() {
 		int option = JOptionPane.showConfirmDialog(null,
 			"Uscendo si perderanno tutti i dati! Continuare?", "Conferma", JOptionPane.YES_NO_OPTION);
-		return option==JOptionPane.YES_OPTION;
+		return option == JOptionPane.YES_OPTION;
 	} // consensoUscita
 	private class AscoltatoreEventiAzione implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
