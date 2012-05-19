@@ -352,6 +352,18 @@ public final class Array {
 		T m2 = max(v, med + 1, sup);
 		return (m1.compareTo(m2) > 0 ? m1 : m2);
 	} // max
+	public static void permuta(int[] v) {
+		permuta(v, 0);
+	} // permuta
+	private static void permuta(int[] v, int i) {
+		if (i == v.length) System.out.println(Arrays.toString(v));
+		else
+			for (int j = i; j < v.length; j++) {
+				int tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+				permuta(v, i + 1);
+				tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+			}
+	}
 	// Metodi su Vector
 	public static int ricercaLineare(Vector<?> v, Object x) {
 		for (int i = 0; i < v.size(); i++)
@@ -526,10 +538,12 @@ public final class Array {
 	} // base
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) {
-		int[] a = {13, 2, 10, 2, 4, 5, 9, 5};
+		int[] a = {13, 10, 2, 4, 9, 5};
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));
 		bucketSort(a);
 		System.out.println("Vettore di interi dopo l'ordinamento:\n" + Arrays.toString(a));
+		System.out.println("Permutazioni:");
+		permuta(a);
 		Vector<Integer> v = new ArrayVector<Integer>();
 		v.add(13); v.add(2); v.add(10); v.add(4); v.add(9); v.add(5);
 		System.out.println("Vector prima dell'ordinamento:\n" + v);
