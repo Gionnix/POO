@@ -24,17 +24,17 @@ public class GestioneAgendina {
 		}
 		switch (tipo) {
 			case 0: 
-				agenda=new AgendinaAL(capacita); break;
+				agenda = new AgendinaAL(capacita); break;
 			case 1: 
-				agenda=new AgendinaLL(); break;
+				agenda = new AgendinaLL(); break;
 			case 2: 
-				agenda=new AgendinaTreeSet(); break;
+				agenda = new AgendinaTreeSet(); break;
 			case 3: 
-				agenda=new AgendinaHashSet(); break;
+				agenda = new AgendinaHashSet(); break;
 			case 4: 
-				agenda=new AgendinaMap(); break;
+				agenda = new AgendinaMap(); break;
 			default:
-				agenda=new AgendinaVector(capacita);
+				agenda = new AgendinaVector(capacita);
 		}
 		sc.nextLine();
 		comandi(); char comando;

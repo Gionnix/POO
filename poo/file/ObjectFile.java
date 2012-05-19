@@ -9,6 +9,7 @@ public class ObjectFile<T extends Serializable> {
 	private String nomeFile;
 	private T buffer = null; // Anticipa prossimo elemento del file
 	private Modo modo;
+	@SuppressWarnings("unchecked")
 	public ObjectFile(String nomeFile, Modo modo) throws IOException {
 		this.nomeFile = nomeFile; this.modo = modo;
 		if (modo == Modo.LETTURA)
@@ -23,6 +24,7 @@ public class ObjectFile<T extends Serializable> {
 	} // Costruttore
 	public String getNomeFile() { return nomeFile; }
 	public Modo modo() { return modo; }
+	@SuppressWarnings("unchecked")
 	public void open(Modo modo) throws IOException {
 		close();
 		this.modo = modo;
@@ -50,6 +52,7 @@ public class ObjectFile<T extends Serializable> {
 		if (eof()) throw new EOFException();
 		return buffer;
 	} // peek
+	@SuppressWarnings("unchecked")
 	public void get() throws IOException {
 		if (eof()) throw new EOFException();
 		try {
@@ -66,6 +69,7 @@ public class ObjectFile<T extends Serializable> {
 			throw new IOException();
 		}
 	} // put
+	@SuppressWarnings("unchecked")
 	public String toString() {
 		StringBuilder sb = new StringBuilder(500);
 		sb.append('[');

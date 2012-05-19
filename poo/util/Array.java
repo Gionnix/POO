@@ -88,7 +88,7 @@ public final class Array {
 			v[indMax] = tmp;
 		}
 	} // selectionSort
-	public static void selectionSort (double[] v) {
+	public static void selectionSort(double[] v) {
 		for (int j = v.length - 1; j > 0; j--) {
 			int indMax = 0;
 			for (int i = 1; i <= j; i++)
@@ -133,6 +133,18 @@ public final class Array {
 			v[j] = x;
 		}
 	} // insertionSort
+	public static void bucketSort(int[] v) {
+		int MAX = 200;
+		int[] a = new int[MAX];
+		for (int i = 0; i < v.length; i++) {
+			if (v[i] < 0 || v[i] >= MAX) return;
+			a[v[i]]++;
+		}
+		int pos = 0;
+		for (int i = 0; i < MAX; i++)
+			for (int j = 1; j <= a[i]; j++)
+				v[pos++] = i;
+	} // bucketSort
 	public static int ricercaBinaria(int[] v, int x) {
 		// v è supposto ordinato per valori crescenti
 		int inf = 0, sup = v.length - 1;
@@ -281,6 +293,18 @@ public final class Array {
 			v[j] = x;
 		}
 	} // insertionSort
+	public static void bucketSort(int[] v, int size) {
+		int MAX = 200;
+		int[] a = new int[MAX];
+		for (int i = 0; i < size; i++) {
+			if (v[i] < 0 || v[i] >= MAX) return;
+			a[v[i]]++;
+		}
+		int pos = 0;
+		for (int i = 0; i < MAX; i++)
+			for (int j = 1; j <= a[i]; j++)
+				v[pos++] = i;
+	} // bucketSort
 	public static int ricercaBinaria(int[] v, int x, int size) {
 		if (size < 0 || size > v.length) throw new IllegalArgumentException();
 		// v è supposto ordinato per valori crescenti
@@ -318,6 +342,16 @@ public final class Array {
 		}
 		return -1;
 	} // ricercaBinaria
+	public static <T extends Comparable<? super T>> T max(T[] v) {
+		return max(v, 0, v.length - 1);
+	} // max
+	private static <T extends Comparable<? super T>> T max(T[] v, int inf, int sup) {
+		if (inf == sup) return v[inf];
+		int med = (inf + sup) / 2;
+		T m1 = max(v, inf, med);
+		T m2 = max(v, med + 1, sup);
+		return (m1.compareTo(m2) > 0 ? m1 : m2);
+	} // max
 	// Metodi su Vector
 	public static int ricercaLineare(Vector<?> v, Object x) {
 		for (int i = 0; i < v.size(); i++)
@@ -392,6 +426,7 @@ public final class Array {
 			m += v.get(i) * v.get(i);
 		return Math.sqrt(m);
 	} // modulo
+	@SuppressWarnings("unchecked")
 	public static boolean base(Vector<Double> ... v) {
 		int n = v.length;
 		for (int i = 0; i < n; i++)
@@ -478,6 +513,7 @@ public final class Array {
 	public static double modulo(ArrayList<Double> l) {
 		return Math.sqrt(prodottoScalare(l, l));
 	} // modulo
+	@SuppressWarnings("unchecked")
 	public static boolean base(ArrayList<Double> ... l) {
 		int n = l.length;
 		for (int i = 0; i < n; i++)
@@ -490,9 +526,9 @@ public final class Array {
 	} // base
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) {
-		int[] a = {13, 2, 10, 4, 9, 5};
+		int[] a = {13, 2, 10, 2, 4, 5, 9, 5};
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));
-		insertionSort(a);
+		bucketSort(a);
 		System.out.println("Vettore di interi dopo l'ordinamento:\n" + Arrays.toString(a));
 		Vector<Integer> v = new ArrayVector<Integer>();
 		v.add(13); v.add(2); v.add(10); v.add(4); v.add(9); v.add(5);
