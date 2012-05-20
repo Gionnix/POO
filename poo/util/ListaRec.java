@@ -81,23 +81,16 @@ public class ListaRec<T extends Comparable<? super T>> extends CollezioneOrdinat
 		return lista;
 	} // remove
 	public void reverse() {
-		if (lista != null) lista = reverseRic(lista, lista.next);
+		lista = reverseRec(lista);
 	} // reverse
-	private Lista<T> reverseRic(Lista<T> l1, Lista<T> l2) {
-		if (l2 == null) return l1; // Ultimo elemento
-		if (l1 == lista) l1.next = null; // La testa attuale sarà la coda, il suo next dovrà essere null.
-		Lista<T> l3 = l2.next; // Prendo la successiva
-		l2.next = l1; // Capovolgo il puntatore di l2 (perdendo la successiva, salvata in l3)
-		return reverseRic(l2, l3); // Ritornerà l1 quando l2 sarà null, ovvero l'ultimo elemento.
+	private Lista<T> reverseRec(Lista<T> lista) {
+		if (lista == null || lista.next == null) return lista;
+		Lista<T> revres = reverseRec(lista.next);
+		lista.next.next = lista;
+		lista.next = null;
+		return revres;
 	} // reverseRic
 	public Iterator<T> iterator() {
 		return null;
 	} // iterator
-	public static void main(String[]args) {
-		ListaRec<Integer> l = new ListaRec<Integer>();
-		l.add(2); l.add(5); l.add(40); l.add(22); l.add(34);
-		System.out.println(l);
-		l.reverse();
-		System.out.println(l);
-	} // main
 } // ListaRec
