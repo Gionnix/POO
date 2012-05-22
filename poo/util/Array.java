@@ -465,8 +465,8 @@ public final class Array {
 		}
 	} // mergeSort
 	@SuppressWarnings("unchecked")
-	private static <T extends Object & Comparable<? super T>> void merge(T[] v, int inf, int med, int sup) {
-		T[] aux = (T[])new Object[sup - inf + 1];
+	private static <T extends Comparable<? super T>> void merge(T[] v, int inf, int med, int sup) {
+		T[] aux = (T[])new Comparable[sup - inf + 1];
 		int i = inf, j = med + 1, k = 0;
 		while (i <= med && j <= sup)
 			if (v[i].compareTo(v[j]) < 0) aux[k++] = v[i++];
@@ -478,7 +478,7 @@ public final class Array {
 	} // merge
 	private enum Op {SORT, MERGE};
 	@SuppressWarnings("unchecked")
-	public static <T extends Object & Comparable<? super T>> void mergeSortIte(T[] v) {
+	public static <T extends Comparable<? super T>> void mergeSortIte(T[] v) {
 		int[] infArr = new int[500], supArr = new int[500]; Op[] op = new Op[500]; // Simulano lo stack dei parametri
 		int top = 0, inf = 0, sup = v.length - 1, med; // Parametri iniziali
 		infArr[top] = inf; supArr[top] = sup; op[top] = Op.SORT; top++; // Prima chiamata a mergeSort
@@ -487,7 +487,7 @@ public final class Array {
 			inf = infArr[top]; sup = supArr[top];
 			med = (inf + sup) / 2;
 			if (op[top] == Op.MERGE) {
-				T[] aux = (T[])new Object[sup - inf + 1];
+				T[] aux = (T[])new Comparable[sup - inf + 1];
 				int i = inf, j = med + 1, k = 0;
 				while (i <= med && j <= sup)
 					if (v[i].compareTo(v[j]) < 0) aux[k++] = v[i++];
