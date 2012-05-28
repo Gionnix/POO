@@ -1,4 +1,4 @@
-package poo.giochi;
+package poo.recursion;
 
 public class TorriDiHanoi {
 	enum Paletto {SX, CL, DX};

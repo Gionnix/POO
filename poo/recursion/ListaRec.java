@@ -1,5 +1,6 @@
-package poo.util;
+package poo.recursion;
 
+import poo.util.*;
 import java.util.*;
 
 public class ListaRec<T extends Comparable<? super T>> extends CollezioneOrdinataAstratta<T> {

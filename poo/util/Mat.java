@@ -21,4 +21,16 @@ public final class Mat {
 	public static int mcm(int x, int y) {
 		return (x * y) / mcd(x, y);
 	} // mcm
+	public static int fibo(int n) {
+		// Pre: n > 0
+		if (n < 3) return 1;
+		int[][] m = {{1, 1}, {1, 0}};
+		int[][] mp = matricePotenza(m, n - 1);
+		return mp[0][0];
+	} // fibo
+	private static int[][] matricePotenza(int[][]m, int n) {
+		if (n == 1) return m;
+		if (n % 2 == 0) return Matrix.mul(matricePotenza(m, n / 2), matricePotenza(m, n / 2));
+		return Matrix.mul(Matrix.mul(matricePotenza(m, n / 2), matricePotenza(m, n / 2)), m);
+	} // matricePotenza
 } // Mat
