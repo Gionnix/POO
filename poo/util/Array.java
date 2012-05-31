@@ -1,6 +1,7 @@
 package poo.util;
 
 import java.util.*;
+import poo.heap.*;
 
 public final class Array {
 	private Array() {} // Non istanziabile
@@ -513,6 +514,15 @@ public final class Array {
 	}
 
 /*
+ * Heap sort
+ */
+	public static <T extends Comparable<? super T>> void heapSort(T[] v) {
+		Heap<T> h = new Heap<T>(v.length);
+		for (T e: v) h.add(e);
+		for (int i = 0; i < v.length; i++) v[i] = h.remove();
+	}
+
+/*
  * Bucket sort
  */
 	public static void bucketSort(int[] v) {
@@ -633,7 +643,7 @@ public final class Array {
 	public static void main(String[]args) {
 		Integer[] a = {13, 10, 2, 4, 9, 5};
 		System.out.println("Vettore di interi prima dell'ordinamento:\n" + Arrays.toString(a));
-		mergeSortIte(a);
+		heapSort(a);
 		System.out.println("Vettore di interi dopo l'ordinamento:\n" + Arrays.toString(a));
 /*		System.out.println("Permutazioni:");
 		permuta(a); */

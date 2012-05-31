@@ -6,6 +6,9 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 	private static class Albero<E> {
 		E info;
 		Albero<E> figlioSinistro, figlioDestro;
+		public String toString() {
+			return info.toString();
+		}
 	} // Albero
 	private Albero<T> radice = null;
 
@@ -139,8 +142,9 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		return new ABRIterator();
 	} // iterator
 	private class ABRIterator implements Iterator<T> {
-		private Albero<T> cur = null; private boolean rimovibile = false;
-		private Stack<Albero<T>> nodi = new StackConcatenato<Albero<T>>();
+		private Albero<T> cur = null, padre = null; private boolean rimovibile = false;
+		private Stack<Albero<T>> nodi = new StackConcatenato<Albero<T>>(),
+			nodiPadre = new StackConcatenato<Albero<T>>();
 		public boolean hasNext() {
 			if (cur == null) return radice != null;
 			return !nodi.isEmpty();
@@ -150,21 +154,53 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 			if (cur == null) {
 				cur = radice;
 				while (cur.figlioSinistro != null) {
-					nodi.push(cur); cur = cur.figlioSinistro;
+					nodi.push(cur); nodiPadre.push(cur);
+					cur = cur.figlioSinistro;
 				}
+				if (!nodiPadre.isEmpty()) padre = nodiPadre.pop();
 			} else {
 				cur = nodi.pop();
+				if (cur != radice) padre = nodiPadre.pop();
+				else padre = null;
 				if (cur.figlioDestro != null) {
+					nodiPadre.push(cur);
 					Albero<T> figlio = cur.figlioDestro;
-					do nodi.push(figlio);
-					while ((figlio = figlio.figlioSinistro) != null);
+					nodi.push(figlio);
+					while (figlio.figlioSinistro != null) {
+						nodiPadre.push(figlio);
+						nodi.push(figlio = figlio.figlioSinistro);
+					}
 				}
 			}
 			rimovibile = true;
 			return cur.info;
 		} // next
 		public void remove() {
-			return; // TODO
+			if (!rimovibile) throw new IllegalStateException();
+			rimovibile = false;
+			if (cur.figlioSinistro == null || cur.figlioDestro == null) {
+				Albero<T> nuovoFiglio = (cur.figlioDestro == null ? cur.figlioSinistro : cur.figlioDestro);
+				if (padre == null) radice = nuovoFiglio;
+				else if (cur == padre.figlioDestro) padre.figlioDestro = nuovoFiglio;
+				else padre.figlioSinistro = nuovoFiglio;
+				if (cur.figlioSinistro == null && cur.figlioDestro != null && padre != null && !nodiPadre.isEmpty()) {
+					Albero<T> tmp = cur.figlioDestro;
+					Stack<Albero<T>> sTmp = new StackConcatenato<Albero<T>>();
+					while (tmp.figlioSinistro != null) {
+						sTmp.push(nodiPadre.pop()); tmp = tmp.figlioSinistro;
+					}
+					nodiPadre.pop(); nodiPadre.push(padre);
+					while (!sTmp.isEmpty()) nodiPadre.push(sTmp.pop());
+				}
+			} else {
+				Albero<T> padre = cur, figlio = cur.figlioSinistro;
+				while (figlio.figlioDestro != null) {
+					padre = figlio; figlio = figlio.figlioDestro;
+				}
+				cur.info = figlio.info;
+				if (padre == cur) padre.figlioSinistro = figlio.figlioSinistro;
+				else padre.figlioDestro = figlio.figlioSinistro;
+			}
 		} // remove
 	} // ABRIterator
 	public static void main(String[]args) {
@@ -175,10 +211,15 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		abr.add(-19); abr.add(7); abr.add(15); abr.add(0);
 		System.out.println(abr);
 		System.out.println("size = " + abr.size());
-		System.out.println("Test iteratore");
-		for (int n: abr) System.out.println(n + " ");
+		int r = 2;
+		System.out.println("Test iteratore rimuovi " + r);
+		Iterator<Integer> it = abr.iterator();
+		while (it.hasNext()) {
+			if (it.next() == 2) it.remove();
+		}
+		System.out.println(abr);
 		System.out.println("abr contains 15: " + abr.contains(15));
-		int r = 10;
+		r = 10;
 		System.out.println("Test rimozione di " + r);
 		abr.remove(r);
 		System.out.println(abr);
