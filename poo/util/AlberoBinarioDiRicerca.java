@@ -91,7 +91,7 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		return equals(a1.figlioSinistro, a2.figlioSinistro) && equals(a1.figlioDestro, a2.figlioDestro);
 	} // equals
 
-	public String toString(){
+	public String toString() {
 		StringBuilder sb=new StringBuilder(200);
 		sb.append('[');
 		toString(radice, sb);
@@ -131,13 +131,43 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		}
 	} // visitaSimmetrica
 
+	public void visitaPerLivelli() {
+		if (radice == null) return;
+		Coda<Albero<T>> daVisitare = new CodaConcatenata<Albero<T>>();
+		daVisitare.put(radice);
+		while (!daVisitare.isEmpty()) {
+			Albero<T> cur = daVisitare.get();
+			System.out.print(cur.info + " ");
+			if (cur.figlioSinistro != null) daVisitare.put(cur.figlioSinistro);
+			if (cur.figlioDestro != null) daVisitare.put(cur.figlioDestro);
+		}
+	} // visitaPerLivelli
+
+	public void stampaFrontiera(Albero<T> radice) {
+		if (radice == null) return;
+		if (radice.figlioSinistro == null && radice.figlioDestro == null)
+			System.out.println(radice.info);
+		else {
+			stampaFrontiera(radice.figlioSinistro);
+			stampaFrontiera(radice.figlioDestro);
+		}
+	} // stampaFrontiera
+
 	public boolean bilanciato() { return bilanciato(radice); }
 	private boolean bilanciato(Albero<T> albero) {
 		if (albero == null) return true;
 		if (Math.abs(size(albero.figlioSinistro) - size(albero.figlioDestro)) > 1) return false;
 		return bilanciato(albero.figlioSinistro) && bilanciato(albero.figlioDestro);
 	} // bilanciato
-	
+
+	public int altezza() { return altezza(radice); }
+	private int altezza(Albero<T> radice) {
+		if (radice == null) return -1;
+		int h1 = altezza(radice.figlioSinistro);
+		int h2 = altezza(radice.figlioDestro);
+		return h1 > h2 ? 1 + h1 : 1 + h2;
+	} // altezza
+
 	public Iterator<T> iterator() {
 		return new ABRIterator();
 	} // iterator
@@ -211,6 +241,10 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		abr.add(-19); abr.add(7); abr.add(15); abr.add(0);
 		System.out.println(abr);
 		System.out.println("size = " + abr.size());
+		System.out.println("Altezza = " + abr.altezza());
+		System.out.println("Visita per livelli: ");
+		abr.visitaPerLivelli();
+		System.out.println();
 		int r = 2;
 		System.out.println("Test iteratore rimuovi " + r);
 		Iterator<Integer> it = abr.iterator();
