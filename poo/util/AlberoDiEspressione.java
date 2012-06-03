@@ -91,7 +91,7 @@ public class AlberoDiEspressione {
 	private Nodo buildPre(StringTokenizer st) {
 		Stack<Nodo> pila = new StackConcatenato<Nodo>();
 		String OPERANDO = "[0-9]+";
-		String OPERATORE = "[\\+\\-\\*/%]";
+		String OPERATORE = "[\\+\\-\\*/%\\^]";
 		while (st.hasMoreTokens()) {
 			String tk = st.nextToken();
 			if (tk.matches(OPERATORE)) {
@@ -103,8 +103,13 @@ public class AlberoDiEspressione {
 				opnd.val = Integer.parseInt(tk);
 				if (pila.isEmpty()) pila.push(opnd);
 				else if (pila.top() instanceof NodoOperando || pila.top().figlioS != null) {
+					Nodo cor = opnd;
+					do {
 						Nodo prec = pila.pop();
-						pila.top().figlioS = prec; pila.top().figlioD = opnd;
+						pila.top().figlioS = prec; pila.top().figlioD = cor;
+						cor = pila.pop();
+					} while (!pila.isEmpty() && pila.top().figlioS != null);
+					pila.push(cor);
 				} else pila.push(opnd);
 			}
 		}
