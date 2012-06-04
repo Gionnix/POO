@@ -92,7 +92,7 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 	} // equals
 
 	public String toString() {
-		StringBuilder sb=new StringBuilder(200);
+		StringBuilder sb = new StringBuilder(200);
 		sb.append('[');
 		toString(radice, sb);
 		if (sb.charAt(sb.length() - 1) == ' ') sb.setLength(sb.length() - 2);
@@ -172,65 +172,65 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		return new ABRIterator();
 	} // iterator
 	private class ABRIterator implements Iterator<T> {
-		private Albero<T> cur = null, padre = null; private boolean rimovibile = false;
-		private Stack<Albero<T>> nodi = new StackConcatenato<Albero<T>>(),
-			nodiPadre = new StackConcatenato<Albero<T>>();
+		private Albero<T> cur = null, padre = null;
+		private Stack<Albero<T>> nodi = new StackConcatenato<Albero<T>>();
+		public ABRIterator() {
+			cur = radice;
+			while (cur != null) {
+				nodi.push(cur);
+				cur = cur.figlioSinistro;
+			}
+		} // Costruttore
 		public boolean hasNext() {
-			if (cur == null) return radice != null;
 			return !nodi.isEmpty();
 		} // hasNext
 		public T next() {
 			if (!hasNext()) throw new NoSuchElementException();
-			if (cur == null) {
-				cur = radice;
-				while (cur.figlioSinistro != null) {
-					nodi.push(cur); nodiPadre.push(cur);
-					cur = cur.figlioSinistro;
-				}
-				if (!nodiPadre.isEmpty()) padre = nodiPadre.pop();
-			} else {
-				cur = nodi.pop();
-				if (cur != radice) padre = nodiPadre.pop();
-				else padre = null;
-				if (cur.figlioDestro != null) {
-					nodiPadre.push(cur);
-					Albero<T> figlio = cur.figlioDestro;
-					nodi.push(figlio);
-					while (figlio.figlioSinistro != null) {
-						nodiPadre.push(figlio);
-						nodi.push(figlio = figlio.figlioSinistro);
-					}
+			cur = nodi.pop();
+			// Rimuovo eventuali nodi padre su cui ha avuto luogo una remove()
+			if (!nodi.isEmpty() && nodi.top().figlioDestro == null && nodi.top().figlioSinistro == null)
+				nodi.pop();
+			if (cur == radice) padre = null; // La radice non ha padre
+			else {
+				// Ottengo il padre di cur e rimuovo i nodi padre che non serviranno più
+				padre = nodi.top();
+				if (nodi.top().figlioDestro == cur && cur.figlioDestro == null) {
+					Albero<T> figlio = nodi.pop();
+					while (!nodi.isEmpty() && nodi.top().figlioDestro == figlio) figlio = nodi.pop();
 				}
 			}
-			rimovibile = true;
+			// Se cur ha un figlio destro, lo inserisco nello stack insieme a tutti i figli sinistri
+			// Reinserisco cur perché potrebbe successivamente servirmi come padre
+			if (cur.figlioDestro != null) {
+				nodi.push(cur); nodi.push(cur.figlioDestro);
+				Albero<T> figlio = cur.figlioDestro.figlioSinistro;
+				while (figlio != null) {
+					nodi.push(figlio);
+					figlio = figlio.figlioSinistro;
+				}
+			}
 			return cur.info;
 		} // next
 		public void remove() {
-			if (!rimovibile) throw new IllegalStateException();
-			rimovibile = false;
+			if (cur == padre) throw new IllegalStateException();
 			if (cur.figlioSinistro == null || cur.figlioDestro == null) {
+				// Uno dei due figli è null, posso 'bypassare' cur puntando al figlio non nullo
 				Albero<T> nuovoFiglio = (cur.figlioDestro == null ? cur.figlioSinistro : cur.figlioDestro);
 				if (padre == null) radice = nuovoFiglio;
 				else if (cur == padre.figlioDestro) padre.figlioDestro = nuovoFiglio;
 				else padre.figlioSinistro = nuovoFiglio;
-				if (cur.figlioSinistro == null && cur.figlioDestro != null && padre != null && !nodiPadre.isEmpty()) {
-					Albero<T> tmp = cur.figlioDestro;
-					Stack<Albero<T>> sTmp = new StackConcatenato<Albero<T>>();
-					while (tmp.figlioSinistro != null) {
-						sTmp.push(nodiPadre.pop()); tmp = tmp.figlioSinistro;
-					}
-					nodiPadre.pop(); nodiPadre.push(padre);
-					while (!sTmp.isEmpty()) nodiPadre.push(sTmp.pop());
-				}
+				cur.figlioSinistro = null; cur.figlioDestro = null;
 			} else {
-				Albero<T> padre = cur, figlio = cur.figlioSinistro;
+				// cur ha entrambi i figli: cerco il nodo più a destra nel sottoalbero sinistro, da sostituire a cur
+				Albero<T> pre = cur, figlio = cur.figlioSinistro;
 				while (figlio.figlioDestro != null) {
-					padre = figlio; figlio = figlio.figlioDestro;
+					pre = figlio; figlio = figlio.figlioDestro;
 				}
 				cur.info = figlio.info;
-				if (padre == cur) padre.figlioSinistro = figlio.figlioSinistro;
-				else padre.figlioDestro = figlio.figlioSinistro;
+				if (pre == cur) pre.figlioSinistro = figlio.figlioSinistro;
+				else pre.figlioDestro = figlio.figlioSinistro;
 			}
+			cur = padre; // Remove eseguita
 		} // remove
 	} // ABRIterator
 	public static void main(String[]args) {
@@ -249,7 +249,7 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		System.out.println("Test iteratore rimuovi " + r);
 		Iterator<Integer> it = abr.iterator();
 		while (it.hasNext()) {
-			if (it.next() == 2) it.remove();
+			if (it.next() == r) it.remove();
 		}
 		System.out.println(abr);
 		System.out.println("abr contains 15: " + abr.contains(15));
@@ -260,7 +260,7 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		System.out.println("Visita Simmetrica");
 		abr.visitaSimmetrica();
 		System.out.println();
-		r = -7;
+		r = 12;
 		System.out.println("Test rimozione di " + r);
 		abr.remove(r);
 		System.out.println(abr);
