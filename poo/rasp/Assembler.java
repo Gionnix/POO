@@ -32,7 +32,7 @@ public class Assembler {
 		opCode.put("DIV", 17); opCodeString.put(17, "DIV");
 		opCode.put("JZ", 18); opCodeString.put(18, "JZ");
 		opCode.put("JNZ", 19); opCodeString.put(19, "JNZ");
-		opCode.put("LOAD", 20); opCodeString.put(20, "JLZ");
+		opCode.put("JLZ", 20); opCodeString.put(20, "JLZ");
 		opCode.put("JLEZ", 21); opCodeString.put(21, "JLEZ");
 		opCode.put("JGZ", 22); opCodeString.put(22, "JGZ");
 		opCode.put("JGEZ", 23); opCodeString.put(23, "JGEZ");
@@ -71,7 +71,7 @@ public class Assembler {
 				s.setSize(numero);
 				s.setTipo(Simbolo.Tipo.DATO);
 				avanza();
-			} else if (opc.matches(OPCODE)) lex.error("Codice operativo illegale");
+			} else if (!opc.matches(OPCODE)) lex.error("Codice operativo illegale");
 			else {
 				declaration = false;
 				if (lex.getStr().equals("HALT")) {
