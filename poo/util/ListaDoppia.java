@@ -70,12 +70,14 @@ public class ListaDoppia<T extends Comparable<? super T>> extends CollezioneOrdi
 			if (cor == testa) {
 				testa = testa.next;
 				if (testa != null) testa.prior = null;
+				cor = null;
 			} else {
 				cor.prior.next = cor.next;
 				if (cor.next != null) cor.next.prior = cor.prior;
 				cor.next = null; cor.prior = null;
+				cor = cor.prior;
 			}
-			cor = null; size--;
+			size--;
 		} // remove
 	} // ListaDoppiaIterator
 } // ListaDoppia
