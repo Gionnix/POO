@@ -33,4 +33,25 @@ public final class Mat {
 		if (n % 2 == 0) return Matrix.mul(matricePotenza(m, n / 2), matricePotenza(m, n / 2));
 		return Matrix.mul(Matrix.mul(matricePotenza(m, n / 2), matricePotenza(m, n / 2)), m);
 	} // matricePotenza
+	public static int[] int2bit(int x) {
+		int[] bit = new int[32];
+		for (int i = 0; i < bit.length; i++) bit[i] = 0;
+		if (x == Integer.MIN_VALUE) {
+			bit[0] = 1; return bit;
+		}
+		int q = Math.abs(x); int j = 31;
+		do {
+			bit[j] = q % 2;
+			q /= 2; j--;
+		} while (q != 0);
+		if (x < 0) { // complemento a due
+			boolean flag = false; j = 31;
+			while (j >= 0) {
+				if (flag) bit[j] = bit[j] ^ 1;
+				if (bit[j] == 1) flag = true;
+				j--;
+			}
+		}
+		return bit;
+	} // int2bit
 } // Mat

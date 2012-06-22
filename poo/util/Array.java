@@ -517,7 +517,7 @@ public final class Array {
  * Heap sort
  */
 	public static <T extends Comparable<? super T>> void heapSort(T[] v) {
-		Heap<T> h = new Heap<T>(v.length);
+		Heap<T> h = new AlberoHeap<T>();
 		for (T e: v) h.add(e);
 		for (int i = 0; i < v.length; i++) v[i] = h.remove();
 	}
