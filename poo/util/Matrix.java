@@ -1,5 +1,7 @@
 package poo.util;
 
+import java.io.*;
+
 public final class Matrix {
 	// Precondizione: matrici quadrate o rettangolari
 	private Matrix() {} // Sovrascrivo costruttore di default
@@ -321,7 +323,19 @@ public final class Matrix {
 			if (v[i] > max) { max = v[i]; maxpos = i; }
 		return maxpos;
 	} // posMinimo
-
+	public static void sviluppo(char[][] sis, String nomeFile) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(nomeFile));
+		char[] col = new char[13];
+		sviluppo(sis, col, pw, 0);
+		pw.close();
+	} // sviluppo
+	private static void sviluppo(char[][] sis, char[] col, PrintWriter pw, int i) throws IOException {
+		for (int j = 0; j < sis[i].length; j++) {
+			col[i] = sis[i][j];
+			if (i == 12) pw.println(java.util.Arrays.toString(col));
+			else sviluppo(sis, col, pw, i + 1);
+		}
+	} // sviluppo
 	public static void main(String[]args) {
 		System.out.println("Matrice m:");
 		double[][] m = new double[][] {{2,3,1},{3,4,6},{1,6,5}};
@@ -350,5 +364,24 @@ public final class Matrix {
 		for (int i = 0; i < q.length; i++)
 			System.out.println(java.util.Arrays.toString(q[i]));
 		System.out.println("La matrice q è un quadrato magico: " + quadratoMagico(q));
+		System.out.println("Prova sistema totocalcio: ");
+		char[][] sis = {	{'1'},
+					{'1', 'X'},
+					{'2'},
+					{'2', 'X'},
+					{'1', '2'},
+					{'1', '2', 'X'},
+					{'1'},
+					{'X'},
+					{'1'},
+					{'2'},
+					{'1', '2'},
+					{'2', 'X'},
+					{'2'}		};
+		try {
+			sviluppo(sis, "totocalcio.txt");
+		} catch (IOException e) {
+			System.out.println("Errore di scrittura!");
+		}
 	} // main
 } // Matrix
