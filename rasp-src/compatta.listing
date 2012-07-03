@@ -1,0 +1,456 @@
+1: ; int length = 10;
+2: ; int v = new int[10];
+3: ; int w = new int[10];
+4: ; leggi v
+5: ; leggi x
+6: ; for (int i = 0; i < length; i++) {
+7: ; 	if (v[i] < x) w[i] = v[i] + x;
+8: ; 	else w[i] = v[i] - x;
+9: ; }
+10: ; for (int i = 0; i < length; i++) {
+11: ; 	if (w[i] == 0) {
+12: ; 		for (int j = i; j < length; j++) {
+13: ; 			w[j] = w[j + 1];
+14: ; 			w[j + 1] = 0;
+15: ; 		}
+16: ; 		i--;
+17: ; 	}
+18: ; }
+19: ; for (int i = 0; i < length; i++) {
+20: ; 	if (w[i] == 0) break;
+21: ; 	stampa w[i];
+22: ; }
+23: ; return;
+24: 
+25: ; Traduzione in RASP
+26: 
+27: V:		RES	10
+28: W:		RES	10
+29: 
+30: 		LOAD#	10
+31: 		STORE	LENGTH
+32: 		LOAD#	0
+33: 		STORE	I
+34: FORL:
+35: 		LOAD	I
+36: 		SUB	LENGTH
+37: 		JZ	FINEFORL
+38: 		LOAD#	V
+39: 		ADD	I
+40: 		STORE	VI
+41: 		READ@	VI
+42: 		LOAD	I
+43: 		ADD#	1
+44: 		STORE	I
+45: 		JUMP	FORL
+46: FINEFORL:
+47: 		READ	X
+48: 		LOAD#	0
+49: 		STORE	I
+50: FORASSEGNA:
+51: 		LOAD	I
+52: 		SUB	LENGTH
+53: 		JZ	FINEFORASSEGNA
+54: 		LOAD#	V
+55: 		ADD	I
+56: 		STORE	VI
+57: 		LOAD#	W
+58: 		ADD	I
+59: 		STORE	WI
+60: 		LOAD@	VI
+61: 		SUB	X
+62: 		JGEZ	ELSE
+63: 		LOAD@	VI
+64: 		ADD	X
+65: 		STORE@	WI
+66: 		JUMP	FINEIF
+67: ELSE:
+68: 		STORE@	WI
+69: FINEIF:
+70: 		LOAD	I
+71: 		ADD#	1
+72: 		STORE	I
+73: 		JUMP FORASSEGNA
+74: FINEFORASSEGNA:
+75: 		LOAD#	0
+76: 		STORE	I
+77: FORCOMPATTA:
+78: 		LOAD	I
+79: 		SUB	LENGTH
+80: 		JZ	FINEFORCOMPATTA
+81: 		LOAD#	W
+82: 		ADD	I
+83: 		STORE	WI
+84: 		LOAD@	WI
+85: 		JNZ	FINEIFSPOSTA
+86: 		LOAD	I
+87: 		STORE	J
+88: FORSPOSTA:
+89: 		LOAD	J
+90: 		SUB	LENGTH
+91: 		ADD#	1
+92: 		JZ	FINEIFSPOSTA
+93: 		LOAD#	W
+94: 		ADD	J
+95: 		STORE	WJ
+96: 		ADD#	1
+97: 		STORE	WJ_1
+98: 		LOAD@	WJ_1
+99: 		STORE@	WJ
+100: 		LOAD#	0
+101: 		STORE@	WJ_1
+102: 		LOAD	J
+103: 		ADD#	1
+104: 		STORE	J
+105: 		JUMP	FORSPOSTA
+106: FINEIFSPOSTA:
+107: 		LOAD	I
+108: 		ADD#	1
+109: 		STORE	I
+110: 		JUMP	FORCOMPATTA
+111: FINEFORCOMPATTA:
+112: 		LOAD#	0
+113: 		STORE	I
+114: FORW:
+115: 		LOAD	I
+116: 		SUB	LENGTH
+117: 		JZ	FINE
+118: 		LOAD#	W
+119: 		ADD	I
+120: 		STORE	WI
+121: 		LOAD@	WI
+122: 		JZ	FINE
+123: 		WRITE@	WI
+124: 		LOAD	I
+125: 		ADD#	1
+126: 		STORE	I
+127: 		JUMP	FORW
+128: FINE:
+129: 		HALT
+
+Contenuto tabella dei simboli
+ELSE @ 102 size: 1 tipo: ISTR
+FINE @ 261 size: 1 tipo: ISTR
+FINEFORASSEGNA @ 117 size: 1 tipo: ISTR
+FINEFORCOMPATTA @ 216 size: 1 tipo: ISTR
+FINEFORL @ 45 size: 1 tipo: ISTR
+FINEIF @ 105 size: 1 tipo: ISTR
+FINEIFSPOSTA @ 204 size: 1 tipo: ISTR
+FORASSEGNA @ 54 size: 1 tipo: ISTR
+FORCOMPATTA @ 123 size: 1 tipo: ISTR
+FORL @ 12 size: 1 tipo: ISTR
+FORSPOSTA @ 153 size: 1 tipo: ISTR
+FORW @ 222 size: 1 tipo: ISTR
+I @ 262 size: 1 tipo: DATO
+J @ 263 size: 1 tipo: DATO
+LENGTH @ 264 size: 1 tipo: DATO
+V @ 265 size: 10 tipo: DATO
+VI @ 275 size: 1 tipo: DATO
+W @ 276 size: 10 tipo: DATO
+WI @ 286 size: 1 tipo: DATO
+WJ @ 287 size: 1 tipo: DATO
+WJ_1 @ 288 size: 1 tipo: DATO
+X @ 289 size: 1 tipo: DATO
+
+
+Tabella codici operativi
+
+{JNZ=19, JLZ=20, HALT=25, READ=12, LOAD=10, SUB=15, DIV=17, JZ=18, MUL=16, JLEZ=21, JGEZ=23, WRITE=13, JGZ=22, STORE=11, JUMP=24, ADD=14}
+
+Tabella dei modi
+
+{#=1,  =0, @=2}
+
+Codice macchina generato
+
+0 10
+1 1
+2 10
+3 11
+4 0
+5 264
+6 10
+7 1
+8 0
+9 11
+10 0
+11 262
+12 10
+13 0
+14 262
+15 15
+16 0
+17 264
+18 18
+19 0
+20 45
+21 10
+22 1
+23 265
+24 14
+25 0
+26 262
+27 11
+28 0
+29 275
+30 12
+31 2
+32 275
+33 10
+34 0
+35 262
+36 14
+37 1
+38 1
+39 11
+40 0
+41 262
+42 24
+43 0
+44 12
+45 12
+46 0
+47 289
+48 10
+49 1
+50 0
+51 11
+52 0
+53 262
+54 10
+55 0
+56 262
+57 15
+58 0
+59 264
+60 18
+61 0
+62 117
+63 10
+64 1
+65 265
+66 14
+67 0
+68 262
+69 11
+70 0
+71 275
+72 10
+73 1
+74 276
+75 14
+76 0
+77 262
+78 11
+79 0
+80 286
+81 10
+82 2
+83 275
+84 15
+85 0
+86 289
+87 23
+88 0
+89 102
+90 10
+91 2
+92 275
+93 14
+94 0
+95 289
+96 11
+97 2
+98 286
+99 24
+100 0
+101 105
+102 11
+103 2
+104 286
+105 10
+106 0
+107 262
+108 14
+109 1
+110 1
+111 11
+112 0
+113 262
+114 24
+115 0
+116 54
+117 10
+118 1
+119 0
+120 11
+121 0
+122 262
+123 10
+124 0
+125 262
+126 15
+127 0
+128 264
+129 18
+130 0
+131 216
+132 10
+133 1
+134 276
+135 14
+136 0
+137 262
+138 11
+139 0
+140 286
+141 10
+142 2
+143 286
+144 19
+145 0
+146 204
+147 10
+148 0
+149 262
+150 11
+151 0
+152 263
+153 10
+154 0
+155 263
+156 15
+157 0
+158 264
+159 14
+160 1
+161 1
+162 18
+163 0
+164 204
+165 10
+166 1
+167 276
+168 14
+169 0
+170 263
+171 11
+172 0
+173 287
+174 14
+175 1
+176 1
+177 11
+178 0
+179 288
+180 10
+181 2
+182 288
+183 11
+184 2
+185 287
+186 10
+187 1
+188 0
+189 11
+190 2
+191 288
+192 10
+193 0
+194 263
+195 14
+196 1
+197 1
+198 11
+199 0
+200 263
+201 24
+202 0
+203 153
+204 10
+205 0
+206 262
+207 14
+208 1
+209 1
+210 11
+211 0
+212 262
+213 24
+214 0
+215 123
+216 10
+217 1
+218 0
+219 11
+220 0
+221 262
+222 10
+223 0
+224 262
+225 15
+226 0
+227 264
+228 18
+229 0
+230 261
+231 10
+232 1
+233 276
+234 14
+235 0
+236 262
+237 11
+238 0
+239 286
+240 10
+241 2
+242 286
+243 18
+244 0
+245 261
+246 13
+247 2
+248 286
+249 10
+250 0
+251 262
+252 14
+253 1
+254 1
+255 11
+256 0
+257 262
+258 24
+259 0
+260 222
+261 25
+262 0
+263 0
+264 0
+265 0
+266 1
+267 2
+268 3
+269 4
+270 5
+271 6
+272 7
+273 8
+274 9
+275 0
+276 0
+277 1
+278 2
+279 3
+280 4
+281 5
+282 6
+283 7
+284 8
+285 9
+286 0
+287 0
+288 0
+289 0
+
