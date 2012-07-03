@@ -17,7 +17,6 @@ public class SelectionSortObject {
 			f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.LETTURA);
 			tmp1 = new ObjectFile<Integer>("tmp1", ObjectFile.Modo.SCRITTURA);
 			tmp2 = new ObjectFile<Integer>("tmp2", ObjectFile.Modo.SCRITTURA);
-			int x = 0;
 			while (!f.eof()) {
 				selectMin(f, tmp1, tmp2);
 				String fName = f.getNomeFile();

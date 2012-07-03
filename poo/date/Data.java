@@ -7,9 +7,9 @@ public class Data implements Comparable<Data> {
 	public enum Elemento {GIORNO, MESE, ANNO};
 	public Data() {
 		GregorianCalendar gc = new GregorianCalendar();
-		this.g = gc.get(gc.DAY_OF_MONTH);
-		this.m = gc.get(gc.MONTH)+1;
-		this.a = gc.get(gc.YEAR);
+		this.g = gc.get(Calendar.DAY_OF_MONTH);
+		this.m = gc.get(Calendar.MONTH) + 1;
+		this.a = gc.get(Calendar.YEAR);
 	} // Costruttore di default: data corrente
 	public Data(int g, int m, int a) {
 		if (	g < 1 || g > durataMese(m, a) ||

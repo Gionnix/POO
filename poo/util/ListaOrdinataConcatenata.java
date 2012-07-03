@@ -37,6 +37,7 @@ public class ListaOrdinataConcatenata<T extends Comparable<? super T>> extends C
 			size--;
 		}
 	} // remove
+
 	public Iterator<T> iterator() {
 		return new Iteratore();
 	} // iterator

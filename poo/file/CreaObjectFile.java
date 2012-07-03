@@ -12,7 +12,6 @@ public class CreaObjectFile {
 		try {
 			f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.SCRITTURA);
 			System.out.println("Inserire numeri interi (solo INVIO per terminare):");
-			int x = 0;
 			for (;;) {
 				System.out.print("int> ");
 				String line = sc.nextLine();

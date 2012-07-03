@@ -66,13 +66,10 @@ public class HeapArray<T extends Comparable<? super T>> extends HeapAstratto<T> 
 		public void remove() {
 			if (!rimovibile) throw new IllegalStateException();
 			rimovibile = false;
-			heap[corrente] = null; int pos = 0;
-			T[] tmp = (T[])new Comparable[size - corrente];
-			for (int i = corrente + 1; i <= size; i++) {
-				tmp[pos++] = heap[i]; heap[i] = null;
-			}
-			size = --corrente;
-			for (int i = 0; i < pos; i++) add(tmp[i]);
+			heap[corrente] = null;
+			int tmp = size; size == --corrente;
+			for (int i = corrente + 2; i <= tmp; i++) add(heap[i]);
+			heap[tmp] = null;
 		} // remove
 	} // HeapIterator
 } // Heap

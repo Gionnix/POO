@@ -523,6 +523,109 @@ public final class Array {
 	}
 
 /*
+ * Quick sort
+ */
+	public static void quickSort(int[] v) { quickSort( v, 0, v.length - 1); }
+	public static void quickSort(int[] v, int size) {
+		if (size < 0 || size > v.length) throw new IllegalArgumentException();
+		quickSort(v, 0, size - 1);
+	} // quickSort
+	private static void quickSort(int[] v, int inf, int sup) {
+		if (inf < sup) {
+			int x = v[(inf + sup) / 2];
+			int i = inf, j = sup;
+			do {
+				while (v[i] < x) i++;
+				while (v[j] > x) j--;
+				if (i <= j) {
+					int tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+					i++; j--;
+				}
+			} while (i <= j);
+			quickSort(v, inf, j);
+			quickSort(v, i, sup);
+		}
+	} // quickSort
+	public static void quickSort(double[] v) { quickSort(v, 0, v.length - 1); }
+	public static void quickSort(double[] v, int size) {
+		if (size < 0 || size > v.length) throw new IllegalArgumentException();
+		quickSort(v, 0, size - 1);
+	} // quickSort
+	private static void quickSort(double[] v, int inf, int sup) {
+		if (inf < sup) {
+			double x = v[(inf + sup) / 2];
+			int i = inf, j = sup;
+			do {
+				while (v[i] < x) i++;
+				while (v[j] > x) j--;
+				if (i <= j) {
+					double tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+					i++; j--;
+				}
+			} while (i <= j);
+			quickSort(v, inf, j);
+			quickSort(v, i, sup);
+		}
+	} // quickSort
+	public static <T extends Comparable<? super T>> void quickSort(T[] v) { quickSort(v, 0, v.length - 1); }
+	public static <T extends Comparable<? super T>> void quickSort(T[] v, int size) {
+		if (size < 0 || size > v.length) throw new IllegalArgumentException();
+		quickSort(v, 0, size - 1);
+	} // quickSort
+	private static <T extends Comparable<? super T>> void quickSort(T[] v, int inf, int sup) {
+		if (inf < sup) {
+			T x = v[(inf + sup) / 2];
+			int i = inf, j = sup;
+			do {
+				while (v[i].compareTo(x) < 0) i++;
+				while (v[j].compareTo(x) > 0) j--;
+				if (i <= j) {
+					T tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+					i++; j--;
+				}
+			} while (i <= j);
+			quickSort(v, inf, j);
+			quickSort(v, i, sup);
+		}
+	} // quickSort
+	public static <T extends Comparable<? super T>> void quickSort(Vector<T> v) { quickSort(v, 0, v.size() - 1); }
+	private static <T extends Comparable<? super T>> void quickSort(Vector<T> v, int inf, int sup) {
+		if (inf < sup) {
+			T x = v.get((inf + sup) / 2);
+			int i = inf, j = sup;
+			do {
+				while (v.get(i).compareTo(x) < 0) i++;
+				while (v.get(j).compareTo(x) > 0) j--;
+				if (i <= j) {
+					T park = v.get(i); v.set(i, v.get(j));
+					v.set(j,park);
+					i++; j--;
+				}
+			} while (i <= j);
+			quickSort(v, inf, j);
+			quickSort(v, i, sup);
+		}
+	} // quickSort
+	public static <T extends Comparable<? super T>> void quickSort(java.util.List<T> v) { quickSort(v, 0, v.size() - 1); }
+	private static <T extends Comparable<? super T>> void quickSort(java.util.List<T> v, int inf, int sup) {
+		if (inf < sup) {
+			T x = v.get((inf + sup) / 2);
+			int i = inf, j = sup;
+			do {
+				while (v.get(i).compareTo(x) < 0) i++;
+				while (v.get(j).compareTo(x) > 0) j--;
+				if (i <= j) {
+					T tmp = v.get(i); v.set(i, v.get(j)); 
+					v.set(j, tmp);
+					i++; j--;
+				}
+			} while (i <= j);
+			quickSort(v, inf, j);
+			quickSort(v, i, sup);
+		}
+	} // quickSort
+
+/*
  * Bucket sort
  */
 	public static void bucketSort(int[] v) {

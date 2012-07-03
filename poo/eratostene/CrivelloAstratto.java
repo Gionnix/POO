@@ -3,7 +3,7 @@ package poo.eratostene;
 public abstract class CrivelloAstratto implements Crivello {
 	public int size() {
 		int c = 0;
-		for (int x: this) c++; // for-each: CrivelloAstratto è Iterable
+		for (int x: this) c++;
 		return c;
 	} // size
 	public String toString() {

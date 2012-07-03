@@ -56,7 +56,6 @@ public class GrafoOrientatoPesatoImpl<N> extends GrafoOrientatoPesatoAstratto<N>
 			Iterator<N> it2 = grafo.keySet().iterator();
 			while (it2.hasNext()) {
 				N v = it.next();
-				ArcoPesato<N> a = new ArcoPesato<N>(v, u);
 				Iterator<ArcoPesato<N>> itAr = grafo.get(v).iterator();
 				while (itAr.hasNext())
 					if (itAr.next().getDestinazione().equals(u)) {

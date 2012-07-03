@@ -12,7 +12,6 @@ public class CreaFileInteri {
 		try {
 			dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(nomeFile)));
 			System.out.println("Inserire numeri interi (solo INVIO per terminare):");
-			int x = 0;
 			for (;;) {
 				System.out.print("int> ");
 				String line = sc.nextLine();

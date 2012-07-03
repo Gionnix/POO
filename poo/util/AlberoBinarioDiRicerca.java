@@ -143,7 +143,20 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		}
 	} // visitaPerLivelli
 
-	public void stampaFrontiera(Albero<T> radice) {
+	public void visitaPerLivelli(LinkedList<T> l) {
+		if (radice == null) return;
+		Coda<Albero<T>> daVisitare = new CodaConcatenata<Albero<T>>();
+		daVisitare.put(radice);
+		while (!daVisitare.isEmpty()) {
+			Albero<T> cur = daVisitare.get();
+			l.add(cur.info);
+			if (cur.figlioSinistro != null) daVisitare.put(cur.figlioSinistro);
+			if (cur.figlioDestro != null) daVisitare.put(cur.figlioDestro);
+		}
+	} // visitaPerLivelli
+
+	public void stampaFrontiera() { stampaFrontiera(radice); }
+	private void stampaFrontiera(Albero<T> radice) {
 		if (radice == null) return;
 		if (radice.figlioSinistro == null && radice.figlioDestro == null)
 			System.out.println(radice.info);
@@ -160,12 +173,16 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 		return bilanciato(albero.figlioSinistro) && bilanciato(albero.figlioDestro);
 	} // bilanciato
 
-	public int altezza() { return altezza(radice); }
+	public int altezza() {
+		if (radice == null) return 0;
+		return altezza(radice);
+	} // altezza
 	private int altezza(Albero<T> radice) {
-		if (radice == null) return -1;
-		int h1 = altezza(radice.figlioSinistro);
-		int h2 = altezza(radice.figlioDestro);
-		return h1 > h2 ? 1 + h1 : 1 + h2;
+		if (radice.figlioSinistro == null && radice.figlioDestro == null) return 0;
+		int h1 = 0, h2 = 0;
+		if (radice.figlioSinistro != null) h1 = 1 + altezza(radice.figlioSinistro);
+		if (radice.figlioDestro != null) h2 = 1 + altezza(radice.figlioDestro);
+		return h1 > h2 ? h1 : h2;
 	} // altezza
 
 	public Iterator<T> iterator() {
@@ -194,7 +211,7 @@ public class AlberoBinarioDiRicerca<T extends Comparable<? super T>> extends Col
 			else {
 				// Ottengo il padre di cur e rimuovo i nodi padre che non serviranno più
 				padre = nodi.top();
-				if (nodi.top().figlioDestro == cur && cur.figlioDestro == null) {
+				if (padre.figlioDestro == cur && cur.figlioDestro == null) {
 					Albero<T> figlio = nodi.pop();
 					while (!nodi.isEmpty() && nodi.top().figlioDestro == figlio) figlio = nodi.pop();
 				}

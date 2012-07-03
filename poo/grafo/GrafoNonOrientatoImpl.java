@@ -84,7 +84,6 @@ public class GrafoNonOrientatoImpl<N> extends GrafoNonOrientatoAstratto<N> {
 			Iterator<N> it2 = grafo.keySet().iterator();
 			while (it2.hasNext()) {
 				N v = it2.next();
-				Arco<N> a = new Arco<N>(v, u);
 				Iterator<Arco<N>> itAr = grafo.get(v).iterator();
 				while (itAr.hasNext())
 					if (itAr.next().getDestinazione().equals(u)) {

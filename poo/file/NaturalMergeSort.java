@@ -20,7 +20,7 @@ public class NaturalMergeSort {
 			f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.LETTURA);
 			tmp1 = new ObjectFile<Integer>("tmp1", ObjectFile.Modo.SCRITTURA);
 			tmp2 = new ObjectFile<Integer>("tmp2", ObjectFile.Modo.SCRITTURA);
-			int n = 0, x = 0, y = 0;
+			int n = 0;
 			while ((n = numeroSegmenti(f)) > 1) {
 				f.close(); f = new ObjectFile<Integer>(nomeFile, ObjectFile.Modo.LETTURA);
 				for (int i = 0; i < n; i++)
