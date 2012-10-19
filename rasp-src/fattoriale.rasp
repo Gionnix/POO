@@ -1,0 +1,93 @@
+;int num;
+;leggi num;
+;if (num < 0) exit(-1);
+;int ris = fatt(num);
+;scrivi ris;
+;
+;int fatt(int n) {
+;	if (n <= 1) return 1;
+;	return n * fatt(n - 1);
+;} // fatt
+
+STACK:		RES	200
+		READ	NUM
+		LOAD	NUM
+		JLZ	FINE
+		LOAD#	0
+		STORE	SIZE
+		LOAD#	STACK
+		ADD	SIZE
+		STORE	TOP
+		LOAD#	FINEFATT
+		STORE@	TOP
+		LOAD	TOP
+		ADD#	1
+		STORE	TOP
+		LOAD	NUM
+		STORE@	TOP
+		LOAD	SIZE
+		ADD#	2
+		STORE	SIZE
+		JUMP	FATT
+FINEFATT:
+		WRITE	STACK
+FINE:		HALT
+FATT:
+		LOAD#	STACK
+		ADD	SIZE
+		SUB#	1
+		STORE	TOP
+		LOAD@	TOP
+		STORE	N
+		SUB#	1
+		JGZ	RECURS
+		LOAD#	STACK
+		ADD	SIZE
+		SUB#	2
+		STORE	RA
+		LOAD@	RA
+		STORE	RETADD
+		LOAD#	1
+		STORE@	RA
+		LOAD	SIZE
+		SUB#	1
+		STORE	SIZE
+		JUMP@	RETADD
+RECURS:
+		LOAD#	STACK
+		ADD	SIZE
+		STORE	TOP
+		LOAD#	FINERECURS
+		STORE@	TOP
+		LOAD	TOP
+		ADD#	1
+		STORE	TOP
+		LOAD	N
+		SUB#	1
+		STORE@	TOP
+		LOAD	SIZE
+		ADD#	2
+		STORE	SIZE
+		JUMP	FATT
+FINERECURS:
+		LOAD#	STACK
+		ADD	SIZE
+		SUB#	1
+		STORE	TOP
+		SUB#	1
+		STORE	N
+		LOAD@	TOP
+		MUL@	N
+		STORE	RETVAL
+		LOAD#	STACK
+		ADD	SIZE
+		SUB#	3
+		STORE	RA
+		LOAD@	RA
+		STORE	RETADD
+		LOAD	RETVAL
+		STORE@	RA
+		LOAD	SIZE
+		SUB#	2
+		STORE	SIZE
+		JUMP@	RETADD

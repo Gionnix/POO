@@ -1,0 +1,53 @@
+; Legge un array di 10 elementi e stampa 1 se è palindromo, 0 altrimenti.
+
+V:		RES	10
+		LOAD#	10
+		STORE	LENGTH
+		LOAD#	0
+		STORE	I
+RFOR:
+		LOAD	LENGTH
+		SUB	I
+		JZ	ENDRFOR
+		LOAD#	V
+		ADD	I
+		STORE	VI
+		READ@	VI
+		LOAD	I
+		ADD#	1
+		STORE	I
+		JUMP	RFOR
+ENDRFOR:
+		LOAD#	0
+		STORE	I
+		LOAD	LENGTH
+		SUB#	1
+		STORE	J
+		LOAD#	1
+		STORE	FLAG
+WHILE:
+		LOAD	I
+		SUB	J
+		JGEZ	ENDWHILE
+		LOAD#	V
+		ADD	I
+		STORE	VI
+		SUB	I
+		ADD	J
+		STORE	VJ
+		LOAD@	VI
+		SUB@	VJ
+		JZ	ENDIF
+		LOAD#	0
+		STORE	FLAG
+		JUMP	ENDWHILE
+ENDIF:		LOAD	I
+		ADD#	1
+		STORE	I
+		LOAD	J
+		SUB#	1
+		STORE	J
+		JUMP	WHILE
+ENDWHILE:	
+		WRITE	FLAG
+		HALT
