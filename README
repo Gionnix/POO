@@ -1,6 +1,7 @@
 Il repository contiene tutti (o quasi) gli esercizi e le classi proposte dal docente L. Nigro del corso di Programmazione Orientata agli Oggetti durante l'A.A. 2011/2012.
+Include i sorgenti in Java, C++ e alcuni esercizi svolti in RASP.
 
-Tutti i sorgenti sono stati testati su sistema operativo GNU/Linux - JVM 1.7.
+Tutti i sorgenti sono stati testati su sistema operativo GNU/Linux (JVM 1.7 per i sorgenti Java).
 
 Ingegneria Informatica - UNICAL.
 
